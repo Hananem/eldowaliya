@@ -24,9 +24,35 @@ const imageVariants: Variants = {
 };
 
 export default function ServicesHero() {
+  const scrollToContact = () => {
+    // يمكنك تعديل هذه الوظيفة للوصول للمكان المطلوب عند الضغط على السهم
+    const contactElement = document.getElementById("contact");
+    if (contactElement) {
+      contactElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+ const scrollToFooter = () => {
+    const footerElement = document.getElementById("footer");
+    if (footerElement) {
+      footerElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="pt-36 pb-16">
       <section className="relative w-full max-w-[95%] md:max-w-[92%] lg:max-w-[1240px] mx-auto min-h-[520px] md:h-[580px] overflow-visible bg-gray-500/10 backdrop-blur-lg rounded-[40px] my-12">
+        {/* السهم في الجزء اليسار العلوي */}
+        <div className="absolute -top-24 left-6 md:left-10 z-30">
+          <button
+            onClick={scrollToFooter}
+            className="w-10 h-10 rounded-full border border-[#fefefe] flex items-center justify-center hover:bg-white/5 transition-colors group"
+          >
+            <span className="text-[#fefefe] group-hover:text-white transition-colors text-lg">
+              ↓
+            </span>
+          </button>
+        </div>
+
         <div
           dir="rtl"
           className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 h-full flex flex-col-reverse md:flex-row items-end justify-between"
@@ -73,18 +99,18 @@ export default function ServicesHero() {
             </motion.p>
 
             <motion.div
-  initial="hidden"
-  animate="visible"
-  custom={0.7}
-  variants={fadeUp}
->
-  <Link
-    href="/contact"
-    className="inline-block bg-[#b31919] hover:bg-[#9a1414] transition-colors text-white font-bold text-base md:text-lg px-12 py-2 rounded-full shadow-lg border-1 border-white"
-  >
-تواصـــــــل مـــــــعنا
-  </Link>
-</motion.div>
+              initial="hidden"
+              animate="visible"
+              custom={0.7}
+              variants={fadeUp}
+            >
+              <Link
+                href="/contact"
+                className="inline-block bg-[#b31919] hover:bg-[#9a1414] transition-colors text-white font-bold text-base md:text-lg px-12 py-2 rounded-full shadow-lg border-1 border-white"
+              >
+                تواصـــــــل مـــــــعنا
+              </Link>
+            </motion.div>
           </div>
         </div>
       </section>
