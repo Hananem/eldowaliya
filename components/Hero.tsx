@@ -72,7 +72,7 @@ export default function Hero() {
             <div className="absolute inset-0 z-20 pointer-events-none shadow-[inset_0_0_50px_35px_rgba(255,255,255,1)] rounded-xl"></div>
             
             <Image 
-              src="/Machine.jpg" 
+              src="/hero.png" 
               alt="Industrial Machine" 
               fill 
               priority 
