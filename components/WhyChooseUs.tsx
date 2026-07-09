@@ -15,19 +15,19 @@ const FEATURES: FeatureItem[] = [
     id: 1,
     label: "01",
     text: "نعتمد على أحدث تقنيات التصنيع لضمان أعلى مستويات الدقة في جميع الأعمال.",
-    image: "/factory-4.png",
+    image: "/factory-3.png",
   },
   {
     id: 2,
     label: "02",
     text: "فريق من المهندسين والفنيين ذوي الخبرة لتنفيذ جميع الأعمال باحترافية.",
-    image: "/factory-3.png",
+    image: "/factory-4.png",
   },
   {
     id: 3,
     label: "03",
     text: "الالتزام بالمواعيد وتسليم المشاريع في الوقت المحدد دون التأثير على الجودة.",
-    image: "/factory-2.png",
+    image: "/factory-5.png",
   },
   {
     id: 4,
