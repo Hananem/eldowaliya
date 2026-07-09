@@ -70,10 +70,10 @@ bg-gray-500/10 backdrop-blur-lg  p-4 rounded-[60px]  "
         >
                   {/* Title */}
  <div className="mb-10 flex justify-center md:mb-14">
-  <h2 className="flex flex-wrap items-center gap-3 text-2xl font-extrabold md:text-4xl">
+  <h2 className="flex flex-wrap items-center gap-3  font-extrabold md:text-4xl">
     {/* النص الأبيض بحد أسود سميك + ظل صلب */}
     <span
-      className="text-white [-webkit-text-stroke:2px_black] [paint-order:stroke_fill]
+      className="text-white !text-[46px] [-webkit-text-stroke:2px_black] [paint-order:stroke_fill]
                  drop-shadow-[3px_3px_0px_#2a303c]"
     >
       لماذا تختار
@@ -81,10 +81,10 @@ bg-gray-500/10 backdrop-blur-lg  p-4 rounded-[60px]  "
 
     {/* الصندوق الأحمر بنفس أسلوب الستروك على النص والحدود */}
     <span
-      className="bg-gradient-to-b from-[#e12b2b] to-[#a11616] px-4 py-1.5
+      className="bg-gradient-to-b from-[#e12b2b] to-[#a11616] text-[36px] px-4 py-1.5
                 
                  text-white [-webkit-text-stroke:2px_black] [paint-order:stroke_fill]
-                 shadow-[0_4px_12px_rgba(225,43,43,0.35)]"
+                 shadow-[0_4px_12px_rgba(225,43,43,0.35)] !text-[46px]"
     >
       مركز الدولية؟
     </span>
