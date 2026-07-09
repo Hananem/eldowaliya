@@ -66,25 +66,25 @@ export default function ServicesHero() {
               animate="visible"
               custom={0.5}
               variants={fadeUp}
-              className="text-gray-300 text-base md:text-lg leading-relaxed font-medium my-6"
+              className="text-gray-300 text-[24px]  leading-relaxed font-medium my-6"
             >
               من التصميم الهندسي وحتى التصنيع والتشطيب النهائي، نقدم حلول
               تصنيع معدنية متكاملة بأعلى معايير الدقة.
             </motion.p>
 
             <motion.div
-              initial="hidden"
-              animate="visible"
-              custom={0.7}
-              variants={fadeUp}
-            >
-              <Link
-                href="/contact"
-                className="inline-block bg-[#b31919] hover:bg-[#9a1414] transition-colors text-white font-bold text-base md:text-lg px-9 py-4 rounded-full shadow-lg"
-              >
-                تواصل معنا
-              </Link>
-            </motion.div>
+  initial="hidden"
+  animate="visible"
+  custom={0.7}
+  variants={fadeUp}
+>
+  <Link
+    href="/contact"
+    className="inline-block bg-[#b31919] hover:bg-[#9a1414] transition-colors text-white font-bold text-base md:text-lg px-12 py-2 rounded-full shadow-lg border-1 border-white"
+  >
+تواصـــــــل مـــــــعنا
+  </Link>
+</motion.div>
           </div>
         </div>
       </section>
