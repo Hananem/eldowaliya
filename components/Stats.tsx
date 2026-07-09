@@ -23,6 +23,12 @@ export default function Stats() {
   const [hasStarted, setHasStarted] = useState<boolean>(false);
   const sectionRef = useRef<HTMLElement | null>(null);
 
+  const scrollToAbout = () => {
+    const aboutSection = document.getElementById("about");
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   // مراقبة السكرول لمعرفة متى دخل القسم إلى الشاشة
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -72,7 +78,12 @@ export default function Stats() {
   }, [hasStarted]);
 
   return (
-    <section ref={sectionRef} className="w-full p-2 py-4 flex justify-center">
+    <section ref={sectionRef} className="w-full p-2 py-4 flex justify-center relative">
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 md:left-24 md:translate-x-0 z-10">
+        <button onClick={scrollToAbout} className="w-10 h-10 rounded-full border border-[#fefefe] flex items-center justify-center hover:bg-white/5 transition-colors group">
+          <span className="text-[#fefefe] group-hover:text-white transition-colors text-lg">↓</span>
+        </button>
+      </div>
       <div 
         className="w-full mt-8 max-w-6xl bg-gray-500/10 backdrop-blur-lg  rounded-[24px] md:rounded-[36px] p-2 shadow-[0_20px_50px_rgba(0,0,0,0.4)] backdrop-blur-md"
         dir="rtl"

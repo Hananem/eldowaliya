@@ -42,10 +42,19 @@ export default function WhyChooseUs() {
   const activeFeature =
     FEATURES.find((f) => f.id === activeId) ?? FEATURES[0];
 
+    const scrollToFooter = () => {
+    const footerElement = document.getElementById("footer");
+    if (footerElement) {
+      footerElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <div className="relative">
+    <div id="why-choose-us" className="relative">
         <div className="absolute -bottom-18 left-1/2 -translate-x-1/2 md:left-24 md:translate-x-0 z-10">
-  <button className="w-10 h-10 rounded-full border border-[#fefefe] flex items-center justify-center hover:bg-white/5 transition-colors group">
+  <button 
+  onClick={scrollToFooter}
+  className="w-10 h-10 rounded-full border border-[#fefefe] flex items-center justify-center hover:bg-white/5 transition-colors group">
     <span className="text-[#fefefe] group-hover:text-white transition-colors text-lg">
       ↓
     </span>

@@ -20,7 +20,7 @@ const QUICK_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="relative  bg-white text-[#181918] pt-16 rounded-tr-[60px] rounded-tl-[60px] md:rounded-tr-[120px] md:rounded-tl-[120px]">
+    <footer id="footer" className="relative  bg-white text-[#181918] pt-16 rounded-tr-[60px] rounded-tl-[60px] md:rounded-tr-[120px] md:rounded-tl-[120px]">
       {/* Top curved glow */}
       <div
         aria-hidden

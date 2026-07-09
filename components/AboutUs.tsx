@@ -1,17 +1,23 @@
+"use client";
 import React from 'react';
+
 export default function AboutUs() {
+    const scrollToWhyChooseUs = () => {
+    const element = document.getElementById("why-choose-us");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
-    <section className="w-full   text-white py-20 px-4  relative">
+    <section id="about" className="w-full   text-white py-20 px-4  relative">
       
       {/* سهم الانتقال العلوي الدائري */}
-      <div className="absolute top-6 left-1/2 -translate-x-1/2 md:left-24 md:translate-x-0 z-10">
-        <button className="w-10 h-10 rounded-full border border-[#fefefe] flex items-center justify-center hover:bg-white/5 transition-colors group">
-          <span className="text-[#fefefe] group-hover:text-white transition-colors text-lg">↓</span>
-        </button>
-      </div>
+    
       {/* سهم الانتقال السفلي */}
 <div className="absolute bottom-6 left-1/2 -translate-x-1/2 md:left-24 md:translate-x-0 z-10">
-  <button className="w-10 h-10 rounded-full border border-[#fefefe] flex items-center justify-center hover:bg-white/5 transition-colors group">
+  <button 
+  onClick={scrollToWhyChooseUs}
+  className="w-10 h-10 rounded-full border border-[#fefefe] flex items-center justify-center hover:bg-white/5 transition-colors group">
     <span className="text-[#fefefe] group-hover:text-white transition-colors text-lg">
       ↓
     </span>
