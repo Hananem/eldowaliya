@@ -2,23 +2,13 @@
 
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
-import {
-  FaDraftingCompass,
-  FaBolt,
-  FaHammer,
-  FaRobot,
-  FaCogs,
-  FaSprayCan,
-  FaTools,
-  FaLayerGroup,
-} from "react-icons/fa";
 
 interface ServiceItem {
   id: number;
   title: string;
   text: string;
   image: string;
-  icon: React.ReactNode;
+  icon: string;
 }
 
 const SERVICES: ServiceItem[] = [
@@ -27,56 +17,56 @@ const SERVICES: ServiceItem[] = [
     title: "التصميم الهندسي وإعداد الرسومات الفنية",
     text: "تحويل الفكرة إلى رسومات وتصاميم تنفيذية دقيقة.",
     image: "/service1.jpg",
-    icon: <FaDraftingCompass className="w-6 h-6" />,
+    icon: "/icon1.png",
   },
   {
     id: 2,
     title: "القطع بالليزر CNC",
     text: "تنفيذ أعمال القطع بدقة عالية لمختلف المعادن والخامات.",
     image: "/service2.jpg",
-    icon: <FaBolt className="w-6 h-6" />,
+    icon: "/icon2.png",
   },
   {
     id: 3,
     title: "الثني باستخدام ماكينات CNC",
     text: "تشكيل وثني المعادن وفقًا للمواصفات الهندسية المطلوبة.",
     image: "/service3.jpg",
-    icon: <FaHammer className="w-6 h-6" />,
+    icon: "/icon3.png",
   },
   {
     id: 4,
     title: "أعمال اللحام والتجميع",
     text: "تجميع جميع المكونات وتنفيذ جميع أنواع اللحام باحترافية لضمان أعلى جودة.",
     image: "/service4.jpg",
-    icon: <FaRobot className="w-6 h-6" />,
+    icon: "/icon4.png",
   },
   {
     id: 5,
     title: "التشطيب والمعالجة السطحية",
     text: "صقل وتشطيب المنتجات للوصول إلى أفضل جودة ومظهر نهائي.",
     image: "/service5.jpg",
-    icon: <FaCogs className="w-6 h-6" />,
+    icon: "/icon5.png",
   },
   {
     id: 6,
     title: "الدهان والحماية",
     text: "تنفيذ أعمال الدهان النهائي باستخدام أنظمة طلاء عالية الجودة ومقاومة للعوامل المختلفة.",
     image: "/service6.jpg",
-    icon: <FaSprayCan className="w-6 h-6" />,
+    icon: "/icon6.png",
   },
   {
     id: 7,
     title: "خراطة وفريزة CNC",
     text: "تنفيذ أعمال الخراطة والفريزة بدقة عالية لتصنيع وتشغيل مختلف القطع المعدنية.",
     image: "/service7.jpg",
-    icon: <FaTools className="w-6 h-6" />,
+    icon: "/icon7.png",
   },
   {
     id: 8,
     title: "الدرفلة",
     text: "تنفيذ أعمال الدرفلة باحترافية لتشكيل المعادن بالمقاسات والسماكات المطلوبة.",
     image: "/service8.jpg",
-    icon: <FaLayerGroup className="w-6 h-6" />,
+    icon: "/icon8.png",
   },
 ];
 
@@ -162,11 +152,21 @@ export default function ServicesSection() {
                 />
               </div>
 
-              {/* المحتوى النصي + الأيقونة المتداخلة */}
+              {/* المحتوى النصي + الأيقونة المصورة بلون #b51719 الحقيقي */}
               <div className="relative flex flex-col items-center text-center px-6 pb-6 pt-10 flex-1">
-                {/* دائرة الأيقونة المتداخلة بين الصورة والنص */}
-                <div className="absolute -top-8 w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center text-[#b31919] ring-4 ring-white">
-                  {service.icon}
+                {/* دائرة الأيقونة المصورة المتداخلة مع الفلتر المطابق تماماً لـ #b51719 */}
+                <div className="absolute -top-8 w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center p-3.5 ring-4 ring-white overflow-hidden">
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={service.icon}
+                      alt={service.title}
+                      fill
+                      className="object-contain"
+                      style={{
+                        filter: "brightness(0) saturate(100%) invert(14%) sepia(98%) saturate(3600%) hue-rotate(350deg) brightness(70%) contrast(115%)"
+                      }}
+                    />
+                  </div>
                 </div>
 
                 <h3 className="text-lg md:text-xl font-extrabold text-[#1a1a1a] mb-2 leading-snug">
