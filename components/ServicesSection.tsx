@@ -16,57 +16,58 @@ const SERVICES: ServiceItem[] = [
     id: 1,
     title: "التصميم الهندسي وإعداد الرسومات الفنية",
     text: "تحويل الفكرة إلى رسومات وتصاميم تنفيذية دقيقة.",
-    image: "/service1.jpg",
+    image: "/services8.jpg",
     icon: "/icon1.png",
   },
   {
     id: 2,
     title: "القطع بالليزر CNC",
     text: "تنفيذ أعمال القطع بدقة عالية لمختلف المعادن والخامات.",
-    image: "/service2.jpg",
-    icon: "/icon2.png",
+    image: "/service3.jpg",
+    icon: "/icon5.png",
   },
   {
     id: 3,
     title: "الثني باستخدام ماكينات CNC",
     text: "تشكيل وثني المعادن وفقًا للمواصفات الهندسية المطلوبة.",
-    image: "/service3.jpg",
+        image: "/services12.png",
+
     icon: "/icon3.png",
   },
   {
     id: 4,
     title: "أعمال اللحام والتجميع",
     text: "تجميع جميع المكونات وتنفيذ جميع أنواع اللحام باحترافية لضمان أعلى جودة.",
-    image: "/service4.jpg",
+    image: "/service5.jpg",
     icon: "/icon4.png",
   },
   {
     id: 5,
     title: "التشطيب والمعالجة السطحية",
     text: "صقل وتشطيب المنتجات للوصول إلى أفضل جودة ومظهر نهائي.",
-    image: "/service5.jpg",
-    icon: "/icon5.png",
+    image: "/services10.jpg",
+     icon: "/icon7.png",
   },
   {
     id: 6,
     title: "الدهان والحماية",
     text: "تنفيذ أعمال الدهان النهائي باستخدام أنظمة طلاء عالية الجودة ومقاومة للعوامل المختلفة.",
-    image: "/service6.jpg",
-    icon: "/icon6.png",
+    image: "/service1.jpg",
+    icon: "/icon2.png",
   },
   {
     id: 7,
     title: "خراطة وفريزة CNC",
     text: "تنفيذ أعمال الخراطة والفريزة بدقة عالية لتصنيع وتشغيل مختلف القطع المعدنية.",
-    image: "/service7.jpg",
-    icon: "/icon7.png",
+    image: "/service2.jpg",
+    icon: "/icon8.png",
   },
   {
     id: 8,
     title: "الدرفلة",
     text: "تنفيذ أعمال الدرفلة باحترافية لتشكيل المعادن بالمقاسات والسماكات المطلوبة.",
-    image: "/service8.jpg",
-    icon: "/icon8.png",
+    image: "/service4.jpg",
+     icon: "/icon1.png",
   },
 ];
 
@@ -125,12 +126,13 @@ export default function ServicesSection() {
           </p>
         </motion.div>
 
-        {/* شبكة البطاقات */}
+        {/* شبكة البطاقات مع ضبط اتجاه الـ Grid من اليسار لليمين */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           variants={gridContainer}
+          dir="ltr"
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {SERVICES.map((service) => (
@@ -140,6 +142,7 @@ export default function ServicesSection() {
               whileHover={{ y: -6 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className="bg-white rounded-[24px] overflow-hidden shadow-xl flex flex-col"
+              dir="rtl"
             >
               {/* صورة الخدمة */}
               <div className="relative w-full aspect-[4/3]">
@@ -152,9 +155,9 @@ export default function ServicesSection() {
                 />
               </div>
 
-              {/* المحتوى النصي + الأيقونة المصورة بلون #b51719 الحقيقي */}
+              {/* المحتوى النصي + الأيقونة المصورة بلون #b51719 */}
               <div className="relative flex flex-col items-center text-center px-6 pb-6 pt-10 flex-1">
-                {/* دائرة الأيقونة المصورة المتداخلة مع الفلتر المطابق تماماً لـ #b51719 */}
+                {/* دائرة الأيقونة المصورة المتداخلة مع الفلتر المطابق لـ #b51719 */}
                 <div className="absolute -top-8 w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center p-3.5 ring-4 ring-white overflow-hidden">
                   <div className="relative w-full h-full">
                     <Image
