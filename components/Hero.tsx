@@ -2,19 +2,19 @@
 
 import React from 'react';
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
-// إعدادات الحركة القابلة لإعادة الاستخدام
-const fadeUp = {
+// إعدادات الحركة مع التحديد الصحيح لنوع Variants لمنع أخطاء Typescript
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 40 },
-  visible: (delay = 0) => ({
+  visible: (customValue: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, delay, ease: "easeOut" },
+    transition: { duration: 0.7, delay: customValue, ease: "easeOut" },
   }),
 };
 
-const scaleIn = {
+const scaleIn: Variants = {
   hidden: { opacity: 0, scale: 0.85 },
   visible: {
     opacity: 1,
@@ -26,11 +26,9 @@ const scaleIn = {
 export default function Hero() {
   return (
     <section className="relative w-full min-h-screen overflow-hidden">
-      
       <div className="w-full min-h-screen pt-12 pb-16 flex flex-col items-center justify-between bg-white rounded-bl-[60px] rounded-br-[60px] md:rounded-bl-[120px] md:rounded-br-[120px] z-10 relative">
         
         <div className="text-center max-w-3xl px-4 z-30 select-none flex flex-col items-center mt-20" dir="rtl">
-          
           <div className="relative inline-block pt-10 pb-4 px-14 z-30">
             
             {/* الصورة العلوية اليمنى */}
@@ -169,7 +167,6 @@ export default function Hero() {
         </div>
 
       </div>
-
     </section>
   );
 }

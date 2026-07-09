@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 interface StatItem {
   number: string;
@@ -9,8 +9,8 @@ interface StatItem {
   targetValue: number;
 }
 
-// إعدادات حركة الحاوية والعناصر الفرعية
-const containerVariants = {
+// إعدادات حركة الحاوية والعناصر الفرعية مع تعريف النوع Variants
+const containerVariants: Variants = {
   hidden: { opacity: 0, y: 60, scale: 0.95 },
   visible: {
     opacity: 1,
@@ -25,7 +25,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 25 },
   visible: {
     opacity: 1,

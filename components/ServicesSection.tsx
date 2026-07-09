@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import {
   FaDraftingCompass,
   FaBolt,
@@ -79,8 +79,8 @@ const SERVICES: ServiceItem[] = [
     icon: <FaLayerGroup className="w-6 h-6" />,
   },
 ];
-// حركة العنوان والوصف
-const headerVariants = {
+
+const headerVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
@@ -89,8 +89,7 @@ const headerVariants = {
   },
 };
 
-// حاوية الشبكة - تتحكم بترتيب ظهور البطاقات
-const gridContainer = {
+const gridContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -100,7 +99,7 @@ const gridContainer = {
   },
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 50, scale: 0.95 },
   visible: {
     opacity: 1,
@@ -115,16 +114,16 @@ export default function ServicesSection() {
     <section
       id="services"
       dir="rtl"
-      className="w-full py-20 px-4 relative"
+      className="w-full py-20 px-4 relative mt-8"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto bg-gray-500/10 backdrop-blur-lg rounded-[40px] p-6 md:p-12">
         {/* رأس القسم */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
           variants={headerVariants}
-          className="bg-gray-500/10 backdrop-blur-lg rounded-[40px] md:rounded-[60px] px-6 py-12 md:px-12 md:py-16 mb-8 text-center"
+          className="text-center mb-12"
         >
           <h2 className="text-5xl md:text-7xl font-black text-white mb-6">
             خدماتنا

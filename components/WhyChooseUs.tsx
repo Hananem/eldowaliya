@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { IoMdArrowUp } from "react-icons/io";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 interface FeatureItem {
   id: number;
@@ -40,7 +40,7 @@ const FEATURES: FeatureItem[] = [
 ];
 
 // حركة العنوان
-const titleVariants = {
+const titleVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
@@ -50,7 +50,7 @@ const titleVariants = {
 };
 
 // حاوية القائمة - تتحكم بترتيب ظهور العناصر
-const listContainer = {
+const listContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -60,7 +60,7 @@ const listContainer = {
   },
 };
 
-const listItemVariants = {
+const listItemVariants: Variants = {
   hidden: { opacity: 0, x: 40 },
   visible: {
     opacity: 1,
@@ -69,7 +69,7 @@ const listItemVariants = {
   },
 };
 
-const imageContainerVariants = {
+const imageContainerVariants: Variants = {
   hidden: { opacity: 0, scale: 0.9 },
   visible: {
     opacity: 1,
@@ -104,8 +104,7 @@ export default function WhyChooseUs() {
       </div>
       <section
         dir="rtl"
-        className="w-full mt-8 mb-22 bg-gradient-to-r
-bg-gray-500/10 backdrop-blur-lg  p-4 rounded-[60px]  "
+        className="w-full mt-8 mb-22 bg-gradient-to-r bg-gray-500/15 backdrop-blur-lg p-4 rounded-[60px]"
       >
         <div className="w-full bg-gray-500/10 backdrop-blur-lg px-6 py-12 md:px-12 md:py-16 rounded-[60px]">
           {/* Title */}
@@ -116,21 +115,14 @@ bg-gray-500/10 backdrop-blur-lg  p-4 rounded-[60px]  "
             variants={titleVariants}
             className="mb-10 flex justify-center md:mb-14"
           >
-            <h2 className="flex flex-wrap items-center gap-3  font-extrabold md:text-4xl">
-              {/* النص الأبيض بحد أسود سميك + ظل صلب */}
+            <h2 className="flex flex-wrap items-center gap-3 font-extrabold md:text-4xl">
               <span
-                className="text-white !text-[46px] [-webkit-text-stroke:2px_black] [paint-order:stroke_fill]
-                 drop-shadow-[3px_3px_0px_#2a303c]"
+                className="text-white !text-[46px] [-webkit-text-stroke:2px_black] [paint-order:stroke_fill] drop-shadow-[3px_3px_0px_#2a303c]"
               >
                 لماذا تختار
               </span>
-
-              {/* الصندوق الأحمر بنفس أسلوب الستروك على النص والحدود */}
               <span
-                className="bg-gradient-to-b from-[#e12b2b] to-[#a11616] text-[36px] px-4 py-1.5
-                
-                 text-white [-webkit-text-stroke:2px_black] [paint-order:stroke_fill]
-                 shadow-[0_4px_12px_rgba(225,43,43,0.35)] !text-[46px]"
+                className="bg-gradient-to-b from-[#e12b2b] to-[#a11616] text-[36px] px-4 py-1.5 text-white [-webkit-text-stroke:2px_black] [paint-order:stroke_fill] shadow-[0_4px_12px_rgba(225,43,43,0.35)] !text-[46px]"
               >
                 مركز الدولية؟
               </span>
@@ -138,13 +130,13 @@ bg-gray-500/10 backdrop-blur-lg  p-4 rounded-[60px]  "
           </motion.div>
 
           <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12">
-            {/* القائمة (على اليمين في الشاشات الكبيرة) */}
+            {/* القائمة */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               variants={listContainer}
-              className="order-2 flex flex-col gap-4 md:order-1 w-[500px]"
+              className="order-2 flex flex-col gap-4 md:order-1 w-full max-w-[500px]"
             >
               {FEATURES.map((feature) => {
                 const isActive = feature.id === activeId;
@@ -172,13 +164,13 @@ bg-gray-500/10 backdrop-blur-lg  p-4 rounded-[60px]  "
                       {feature.text}
                     </p>
 
-                    {/* زر السهم في أقصى اليسار */}
+                    {/* زر السهم */}
                     <button
                       type="button"
                       onClick={() => setActiveId(feature.id)}
                       aria-label={`عرض صورة العنصر ${feature.label}`}
                       aria-pressed={isActive}
-                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full  text-white transition-transform duration-200 hover:-translate-y-0.5 hover:border-[#b51719] hover:text-[#b51719] focus:outline-none"
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-200 hover:-translate-y-0.5 hover:border-[#b51719] hover:text-[#b51719] focus:outline-none"
                     >
                       <IoMdArrowUp
                         className="h-4 w-4"
@@ -190,7 +182,7 @@ bg-gray-500/10 backdrop-blur-lg  p-4 rounded-[60px]  "
               })}
             </motion.div>
 
-            {/* حاوية الصورة (على اليسار في الشاشات الكبيرة) */}
+            {/* حاوية الصورة */}
             <motion.div
               initial="hidden"
               whileInView="visible"

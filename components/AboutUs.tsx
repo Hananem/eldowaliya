@@ -1,9 +1,9 @@
 "use client";
 import React from 'react';
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
-// حركة العنوان
-const titleVariants = {
+// حركة العنوان مع تعريف النوع Variants
+const titleVariants: Variants = {
   hidden: { opacity: 0, y: 50, rotate: 0 },
   visible: {
     opacity: 1,
@@ -13,7 +13,7 @@ const titleVariants = {
   },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
@@ -23,7 +23,7 @@ const fadeUp = {
 };
 
 // حاوية الصور المتداخلة - تتحكم بترتيب ظهور أبنائها
-const collageContainer = {
+const collageContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -33,7 +33,7 @@ const collageContainer = {
   },
 };
 
-const imageVariants = {
+const imageVariants: Variants = {
   hidden: { opacity: 0, y: 40, scale: 0.9 },
   visible: {
     opacity: 1,
@@ -88,7 +88,6 @@ export default function AboutUs() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
             variants={fadeUp}
-            transition={{ delay: 0.2 }}
             className="text-gray-300 text-sm md:text-base md:text-lg leading-relaxed font-medium px-4 mt-6"
           >
             في مركز الدولية للخراطة وتشغيل المعادن، نقدم حلولاً متكاملة 
