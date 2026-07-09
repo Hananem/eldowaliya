@@ -36,7 +36,7 @@ export default function ServicesHero() {
             initial="hidden"
             animate="visible"
             variants={imageVariants}
-            className="relative w-full md:w-[48%] h-[500px] md:h-[760px] -mt-36 md:-mt-48 mb-0 shrink-0 rounded-[35px] overflow-hidden  z-25 flex items-end md:-mr-16"
+            className="relative w-full md:w-[53%] h-[500px] md:h-[760px] -mt-36 md:-mt-48 mb-0 shrink-0 rounded-[35px] overflow-hidden  z-25 flex items-end md:-mr-16"
           >
             <Image
               src="/worker.png"
