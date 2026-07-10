@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { HiMenu, HiX } from "react-icons/hi";
 
 const NAV_LINKS = [
-  { href: "/about", label: "About Us" },
+  { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
   { href: "/projects", label: "Projects" },
   { href: "/contact", label: "Contact US" },
@@ -17,7 +17,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl px-4 pt-6 z-50">
+    <nav className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl px-4 py-10 z-50">
       <div className="bg-[#b31919] rounded-full px-6 py-3 flex items-center justify-between shadow-lg relative">
         
         {/* الجانب الأيسر: روابط (تظهر في الشاشات الكبيرة فقط) */}

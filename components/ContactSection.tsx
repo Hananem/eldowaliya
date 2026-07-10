@@ -11,7 +11,7 @@ export default function ContactSection() {
       <div className="relative w-full p-8 sm:p-16 flex flex-col items-start text-right overflow-hidden">
         
         {/* Title */}
-        <h2 className="text-4xl sm:text-6xl font-extrabold text-white leading-tight mb-5 tracking-tight">
+        <h2 className="text-4xl mt-8 sm:text-6xl font-extrabold text-white leading-tight mb-5 tracking-tight">
           تواصل معنا
         </h2>
 
@@ -35,7 +35,7 @@ export default function ContactSection() {
           href="https://wa.me/"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-3 px-12 py-5 border-2 border-white/90 hover:border-white text-white font-semibold rounded-full transition-all hover:bg-white/10 text-lg"
+          className="inline-flex items-center justify-center gap-3 px-12 py-3 border-2 border-white/90 hover:border-white text-white font-semibold rounded-full transition-all hover:bg-white/10 text-lg"
         >
           <span>تـــــحدث مع فـــــريقنا</span>
         </Link>
