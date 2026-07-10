@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, Variants } from "framer-motion";
 
 const SERVICES = [
   { label: "خراطة CNC", href: "#" },
@@ -12,15 +15,44 @@ const SERVICES = [
 
 const QUICK_LINKS = [
   { label: "الرئيسية", href: "/" },
-  { label: "من نحن", href: "/about" },
   { label: "خدماتنا", href: "/services" },
-  { label: "أعمالنا", href: "/works" },
+  { label: "أعمالنا", href: "/projects" },
   { label: "تواصل معنا", href: "/contact" },
 ];
 
+const footerVariants: Variants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
+      when: "beforeChildren",
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 25 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
+
 export default function Footer() {
   return (
-    <footer id="footer" className="relative  bg-white text-[#181918] pt-16 rounded-tr-[60px] rounded-tl-[60px] md:rounded-tr-[120px] md:rounded-tl-[120px]">
+    <motion.footer
+      id="footer"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={footerVariants}
+      className="relative bg-white text-[#181918] pt-16 rounded-tr-[60px] rounded-tl-[60px] md:rounded-tr-[120px] md:rounded-tl-[120px]"
+    >
       {/* Top curved glow */}
       <div
         aria-hidden
@@ -30,8 +62,8 @@ export default function Footer() {
       <div className="relative mx-auto max-w-6xl px-6 pb-10">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-4 text-center md:text-right">
           
-          {/* 1. اللوجو والوصف (أقصى اليمين - يحدد الارتفاع) */}
-          <div className="flex flex-col items-center md:items-start">
+          {/* 1. اللوجو والوصف */}
+          <motion.div variants={itemVariants} className="flex flex-col items-center md:items-start">
             <div className="flex items-center justify-center md:justify-start">
               <Image
                 src="/footer-logo.png"
@@ -47,10 +79,10 @@ export default function Footer() {
               الصناعية المتطورة، مع فريق هندسي يمتلك خبرة واسعة لضمان أعلى
               مستويات الجودة والدقة في كل مشروع.
             </p>
-          </div>
+          </motion.div>
 
-          {/* 2. خدماتنا (المنتصف الأول) - 🛠️ تم إضافة md:pt-4 لتنزيل المحتوى بمحاذاة اللوجو */}
-          <div className="flex flex-col items-center md:items-start mt-8 md:pt-4">
+          {/* 2. خدماتنا */}
+          <motion.div variants={itemVariants} className="flex flex-col items-center md:items-start mt-8 md:pt-4">
             <h3 className="mb-4 text-lg font-extrabold text-[#181918]">
               خدماتنا
             </h3>
@@ -66,10 +98,10 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
-          {/* 3. روابط مهمة (المنتصف الثاني) - 🛠️ تم إضافة md:pt-4 */}
-          <div className="flex flex-col items-center md:items-start mt-8 md:pt-4">
+          {/* 3. روابط مهمة */}
+          <motion.div variants={itemVariants} className="flex flex-col items-center md:items-start mt-8 md:pt-4">
             <h3 className="mb-4 text-lg font-extrabold text-[#181918]">
               روابط مهمة
             </h3>
@@ -85,10 +117,10 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
-          {/* 4. تواصل معنا (أقصى اليسار) - 🛠️ تم إضافة md:pt-4 */}
-          <div className="flex flex-col items-center md:items-start mt-8 md:pt-4">
+          {/* 4. تواصل معنا */}
+          <motion.div variants={itemVariants} className="flex flex-col items-center md:items-start mt-8 md:pt-4">
             <h3 className="mb-4 text-lg font-extrabold text-[#181918]">
               تواصل معنا
             </h3>
@@ -104,17 +136,17 @@ export default function Footer() {
                 01033703430
               </li>
             </ul>
-          </div>
+          </motion.div>
 
         </div>
 
         {/* Divider + copyright */}
-        <div className="mt-12 pt-6 text-center">
-          <p className="text-xs ">
+        <motion.div variants={itemVariants} className="mt-12 pt-6 text-center">
+          <p className="text-md">
             © جميع الحقوق محفوظة لدى مركز الدولية 2026
           </p>
-        </div>
+        </motion.div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }
