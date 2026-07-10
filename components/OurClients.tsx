@@ -74,7 +74,7 @@ export default function OurClients() {
           variants={fadeUp}
           className="mb-6"
         >
-          <h2 className="text-4xl md:text-6xl font-black text-white tracking-wider">
+          <h2 className="text-4xl md:text-8xl font-black text-white tracking-wider">
             عملائـــــــنا
           </h2>
         </motion.div>
@@ -85,7 +85,7 @@ export default function OurClients() {
           viewport={{ once: true, amount: 0.5 }}
           custom={0.2}
           variants={fadeUp}
-          className="text-gray-300 text-sm md:text-lg max-w-3xl mx-auto leading-relaxed mb-16 font-medium"
+          className="text-gray-300 text-sm md:text-[23px] max-w-3xl mx-auto leading-relaxed mb-2 font-medium"
         >
           نفخر بخدمة قاعدة واسعة من العملاء في مختلف القطاعات الصناعية، ونحرض
           على بناء علاقات طويلة الأمد قائمة على الجودة، والاحترافية،
@@ -101,7 +101,7 @@ export default function OurClients() {
         viewport={{ once: true, amount: 0.3 }}
         custom={0.4}
         variants={fadeUp}
-        className="relative w-full my-22"
+        className="relative w-full -mb-4 "
       >
         {/* خلفية الشريط المنحني (SVG) */}
        {/* خلفية الشريط المقعّر (SVG) */}
@@ -143,19 +143,19 @@ export default function OurClients() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className="flex items-center justify-around flex-wrap gap-8"
               >
-                {visibleClients.map((client) => (
-                  <div
-                    key={client.id}
-                    className="relative h-14 md:h-16 w-32 md:w-40 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-85 hover:opacity-100"
-                  >
-                    <Image
-                      src={client.image}
-                      alt={client.name}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                ))}
+               {visibleClients.map((client) => (
+  <div
+    key={client.id}
+    className="relative h-18 md:h-20 w-36 md:w-48 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-85 hover:opacity-100"
+  >
+    <Image
+      src={client.image}
+      alt={client.name}
+      fill
+      className="object-contain"
+    />
+  </div>
+))}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -171,7 +171,7 @@ export default function OurClients() {
         </div>
       </motion.div>
 
-      {/* نقاط التنقل */}
+      {/* نقاط التنقل 
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-2 mt-2">
           {Array.from({ length: totalPages }).map((_, index) => (
@@ -185,7 +185,7 @@ export default function OurClients() {
             />
           ))}
         </div>
-      )}
+      )}*/}
     </section>
   );
 }
