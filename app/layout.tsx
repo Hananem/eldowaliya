@@ -5,6 +5,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import localFont from "next/font/local";
 
+
+
 const expoArabic = localFont({
   src: [
     {
@@ -43,8 +45,64 @@ const cairoArabic = Cairo({
 });
 
 export const metadata: Metadata = {
-  title: "مركز الدولية للخراطة وتشغيل المعادن",
-  description: "حلول متكاملة في تصنيع وتشغيل المعادن باستخدام أحدث ماكينات CNC.",
+  metadataBase: new URL("https://your-domain.com"), // غيّرها لدومينك الفعلي
+  title: {
+    default: "مركز الدولية للخراطة وتشغيل المعادن | CNC بالإسماعيلية",
+    template: "%s | مركز الدولية للخراطة وتشغيل المعادن",
+  },
+  description:
+    "مركز الدولية للخراطة وتشغيل المعادن بمدينة المستقبل - الإسماعيلية. نقدم خدمات خراطة CNC، تشكيل المعادن، القطع بالليزر، اللحام والتشطيب بأعلى معايير الجودة والدقة منذ أكثر من 18 عامًا.",
+  keywords: [
+    "خراطة معادن",
+    "تشغيل معادن",
+    "خراطة CNC",
+    "مصنع خراطة الإسماعيلية",
+    "تصنيع قطع معدنية",
+    "قطع ليزر CNC",
+    "لحام وتجميع معادن",
+    "مركز الدولية",
+  ],
+  authors: [{ name: "مركز الدولية للخراطة وتشغيل المعادن" }],
+  creator: "مركز الدولية للخراطة وتشغيل المعادن",
+  openGraph: {
+    title: "مركز الدولية للخراطة وتشغيل المعادن",
+    description:
+      "حلول متكاملة في تصنيع وتشغيل المعادن باستخدام أحدث ماكينات CNC، بخبرة تمتد لـ 18 عامًا.",
+    url: "https://your-domain.com",
+    siteName: "مركز الدولية للخراطة وتشغيل المعادن",
+    locale: "ar_EG",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.jpg", // صورة مخصصة 1200x630 تقريبًا
+        width: 1200,
+        height: 630,
+        alt: "مركز الدولية للخراطة وتشغيل المعادن",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "مركز الدولية للخراطة وتشغيل المعادن",
+    description:
+      "حلول متكاملة في تصنيع وتشغيل المعادن باستخدام أحدث ماكينات CNC.",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
+  },
+  alternates: {
+    canonical: "https://your-domain.com",
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

@@ -173,7 +173,7 @@ export default function WhyChooseUs() {
                       className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-200 hover:-translate-y-0.5 hover:border-[#b51719] hover:text-[#b51719] focus:outline-none"
                     >
                       <IoMdArrowUp
-                        className="h-4 w-4"
+                        className="h-8 w-8"
                         style={{ transform: "rotate(-45deg)" }}
                       />
                     </button>
