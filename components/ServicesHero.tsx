@@ -33,7 +33,8 @@ export default function ServicesHero() {
 
   return (
     <div className="pt-36 pb-16">
-      <section className="relative w-full max-w-[95%] md:max-w-[92%] lg:max-w-[1240px] mx-auto bg-gray-500/10 backdrop-blur-lg rounded-[40px] my-12 py-10 md:py-0 md:h-[580px] md:flex md:items-center">
+      {/* الطبقة الخارجية الأولى مع الـ padding والـ background المزدوجة */}
+      <section className="relative w-full max-w-[95%] md:max-w-[92%] lg:max-w-[1240px] mx-auto bg-gray-500/10 backdrop-blur-lg rounded-[40px] p-2 my-12 shadow-[0_20px_50px_rgba(0,0,0,0.4)] md:h-[580px]">
         {/* السهم في الجزء اليسار العلوي */}
         <div className="absolute -top-14 md:-top-24 left-6 md:left-10 z-30">
           <button
@@ -46,16 +47,17 @@ export default function ServicesHero() {
           </button>
         </div>
 
+        {/* الطبقة الداخلية الثانية بنفس خلفية الطبقة الأولى والـ padding */}
         <div
           dir="rtl"
-          className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 md:h-full flex flex-col-reverse md:flex-row items-center md:items-end justify-between"
+          className="relative z-10 w-full h-full bg-gray-500/10 backdrop-blur-lg rounded-[32px] px-6 md:px-12 py-8 md:py-0 flex flex-col-reverse md:flex-row items-center md:items-end justify-between"
         >
           {/* الصورة - مخفية في الشاشات الصغيرة */}
           <motion.div
             initial="hidden"
             animate="visible"
             variants={imageVariants}
-            className="hidden md:flex relative w-full md:w-[53%] h-[500px] md:h-[760px] -mt-36 md:-mt-48 mb-0 shrink-0 rounded-[35px] overflow-hidden z-25 items-end md:-mr-16"
+            className="hidden md:flex relative w-full md:w-[53%] h-[500px] md:h-[760px] -mt-36 md:-mt-48 mb-0 shrink-0 rounded-[28px] overflow-hidden z-25 items-end md:-mr-16"
           >
             <Image
               src="/worker.png"
@@ -66,7 +68,7 @@ export default function ServicesHero() {
             />
           </motion.div>
 
-          {/* النص - في المنتصف عمودياً في الشاشة الكبيرة */}
+          {/* النص */}
           <div className="w-full md:w-[45%] md:h-full flex flex-col justify-center text-center md:text-right py-4 md:py-0">
             <motion.h1
               initial="hidden"

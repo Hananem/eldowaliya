@@ -104,85 +104,74 @@ export default function ClientsShowcase() {
   };
 
   return (
-    <section dir="rtl" className="w-full py-20 px-4 md:px-8">
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={fadeUp}
-        className="relative max-w-6xl mx-auto rounded-[32px] bg-gradient-to-br from-[#2a2d3a] to-[#12141c] border border-white/5 shadow-[0_20px_60px_rgba(0,0,0,0.5)] overflow-hidden"
-      >
-        <AnimatePresence mode="wait" custom={direction}>
-          <motion.div
-            key={client.id}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="flex items-center gap-6 md:gap-10 px-6 md:px-12 py-10 md:py-14"
-          >
-            {/* النص + الشعار - أول عنصر بالـ DOM => يظهر أقصى اليمين */}
-            <div className="flex-1 min-w-0">
-              <div className="relative h-14 md:h-20 w-40 md:w-56 mb-6">
+    <section dir="rtl" className="w-full py-20 px-4 md:px-8 flex justify-center">
+      {/* الطبقة الخارجية الأولى مع الـ padding والظل */}
+      <div className="w-full max-w-6xl mx-auto bg-gray-500/10 backdrop-blur-lg rounded-[40px] p-2 shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+        {/* الطبقة الداخلية الثانية بنفس الخلفية والـ padding */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={fadeUp}
+          className="relative w-full bg-gray-500/10 backdrop-blur-lg rounded-[32px] overflow-hidden"
+        >
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={client.id}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="flex items-center gap-6 md:gap-10 px-6 md:px-12 py-10 md:py-14"
+            >
+              {/* النص + الشعار - أول عنصر بالـ DOM => يظهر أقصى اليمين */}
+              <div className="flex-1 min-w-0">
+                <div className="relative h-14 md:h-20 w-40 md:w-56 mb-6">
+                  <Image
+                    src={client.logo}
+                    alt={client.name}
+                    fill
+                    className="object-contain object-right"
+                  />
+                </div>
+                <p className="text-gray-300 text-sm md:text-lg leading-relaxed font-medium">
+                  {client.description}
+                </p>
+              </div>
+
+              {/* زر التالي - يظهر بين الصورة والنص */}
+              <button
+                onClick={next}
+                aria-label="التالي"
+                className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/30 text-white flex items-center justify-center hover:bg-white/10 transition-colors shrink-0 z-10"
+              >
+                <MdKeyboardArrowLeft className="w-6 h-6 md:w-7 md:h-7" />
+              </button>
+
+              {/* الصورة/الكارت الأبيض */}
+              <div className="relative w-[45%] md:w-[38%] aspect-[4/3] shrink-0 rounded-3xl overflow-hidden bg-white">
                 <Image
-                  src={client.logo}
+                  src={client.image}
                   alt={client.name}
                   fill
-                  className="object-contain object-right"
+                  className="object-cover"
                 />
               </div>
-              <p className="text-gray-300 text-sm md:text-lg leading-relaxed font-medium">
-                {client.description}
-              </p>
-            </div>
 
-            {/* زر التالي - يظهر بين الصورة والنص */}
-            <button
-              onClick={next}
-              aria-label="التالي"
-              className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/30 text-white flex items-center justify-center hover:bg-white/10 transition-colors shrink-0 z-10"
-            >
-              <MdKeyboardArrowLeft className="w-6 h-6 md:w-7 md:h-7" />
-            </button>
+              {/* زر السابق - أقصى اليسار */}
+              <button
+                onClick={prev}
+                aria-label="السابق"
+                className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/30 text-white flex items-center justify-center hover:bg-white/10 transition-colors shrink-0 z-10"
+              >
+                <MdKeyboardArrowRight className="w-6 h-6 md:w-7 md:h-7" />
+              </button>
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
 
-            {/* الصورة/الكارت الأبيض */}
-            <div className="relative w-[45%] md:w-[38%] aspect-[4/3] shrink-0 rounded-3xl overflow-hidden bg-white">
-              <Image
-                src={client.image}
-                alt={client.name}
-                fill
-                className="object-cover"
-              />
-            </div>
-
-            {/* زر السابق - أقصى اليسار */}
-            <button
-              onClick={prev}
-              aria-label="السابق"
-              className="w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/30 text-white flex items-center justify-center hover:bg-white/10 transition-colors shrink-0 z-10"
-            >
-              <MdKeyboardArrowRight className="w-6 h-6 md:w-7 md:h-7" />
-            </button>
-          </motion.div>
-        </AnimatePresence>
-      </motion.div>
-
-      {/* نقاط التنقل */}
-      <div className="flex items-center justify-center gap-2 mt-6">
-        {CLIENTS.map((c, i) => (
-          <button
-            key={c.id}
-            onClick={() => {
-              setDirection(i > index ? 1 : -1);
-              setIndex(i);
-            }}
-            aria-label={c.name}
-            className={`h-2 rounded-full transition-all ${
-              i === index ? "w-6 bg-white" : "w-2 bg-white/30"
-            }`}
-          />
-        ))}
+      
       </div>
     </section>
   );
