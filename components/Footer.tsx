@@ -142,9 +142,9 @@ export default function Footer() {
 
         {/* Divider + copyright */}
         <motion.div variants={itemVariants} className="mt-12 pt-6 text-center">
-          <p className="text-md">
-            © جميع الحقوق محفوظة لدى مركز الدولية 2026
-          </p>
+  <p dir="ltr" className="text-center text-md">
+  © <span dir="rtl">جميع الحقوق محفوظة لدى مركز الدولية 2026</span>
+</p>
         </motion.div>
       </div>
     </motion.footer>
