@@ -29,7 +29,7 @@ const FEATURES: FeatureItem[] = [
     id: 3,
     label: "03",
     text: "الالتزام بالمواعيد وتسليم المشاريع في الوقت المحدد دون التأثير على الجودة.",
-    image: "/factory-5.png",
+    image: "/Factory 5.png",
   },
   {
     id: 4,
