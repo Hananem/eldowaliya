@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, Variants } from "framer-motion";
 
 interface StatItem {
@@ -9,7 +9,6 @@ interface StatItem {
   targetValue: number;
 }
 
-// إعدادات حركة الحاوية والعناصر الفرعية مع تعريف النوع Variants
 const containerVariants: Variants = {
   hidden: { opacity: 0, y: 60, scale: 0.95 },
   visible: {
@@ -42,11 +41,11 @@ export default function Stats() {
     { number: "500+", label: "عميل يثقون بنا", targetValue: 500 },
   ];
 
-  // عكس ترتيب البيانات لتصبح الأماكن معكوسة (اليمين يسار واليسار يمين)
   const reversedStats = [...statsData].reverse();
 
   const [counts, setCounts] = useState<number[]>([0, 0, 0, 0]);
   const [hasStarted, setHasStarted] = useState<boolean>(false);
+  const rafRef = useRef<number | null>(null);
 
   const scrollToAbout = () => {
     const aboutSection = document.getElementById("about");
@@ -55,32 +54,36 @@ export default function Stats() {
     }
   };
 
-  // دفعة تصاعد الأرقام عند تفعيل الـ Scroll
   useEffect(() => {
     if (!hasStarted) return;
 
     const duration = 2000;
-    const steps = 50;
-    const intervalTime = duration / steps;
+    const startTime = performance.now();
 
-    statsData.forEach((stat, index) => {
-      let currentStep = 0;
-      const increment = stat.targetValue / steps;
+    const tick = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 2);
 
-      const timer = setInterval(() => {
-        currentStep++;
-        setCounts((prev) => {
-          const newCounts = [...prev];
-          if (currentStep >= steps) {
-            newCounts[index] = stat.targetValue;
-            clearInterval(timer);
-          } else {
-            newCounts[index] = Math.floor(increment * currentStep);
-          }
-          return newCounts;
-        });
-      }, intervalTime);
-    });
+      setCounts(
+        statsData.map((stat) =>
+          progress >= 1
+            ? stat.targetValue
+            : Math.floor(stat.targetValue * eased)
+        )
+      );
+
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(tick);
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasStarted]);
 
   return (
@@ -94,18 +97,25 @@ export default function Stats() {
         </button>
       </div>
 
+      {/* الحاوية الخارجية - blur واحد بس هنا */}
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         onViewportEnter={() => setHasStarted(true)}
         variants={containerVariants}
-        className="w-full mt-8 max-w-6xl bg-gray-500/10 backdrop-blur-lg rounded-[24px] md:rounded-[36px] p-2 shadow-[0_20px_50px_rgba(0,0,0,0.4)] backdrop-blur-md"
+        className="w-full mt-8 max-w-6xl backdrop-blur-lg rounded-[24px] md:rounded-[36px] p-2 shadow-[0_20px_50px_rgba(0,0,0,0.4)] will-change-transform"
         dir="rtl"
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-4 gap-x-2 w-full bg-gray-500/10 backdrop-blur-lg rounded-[18px] md:rounded-[28px] py-3 md:py-4 px-4">
+        {/* الحاوية الداخلية - رمادي فاتح قريب من الأبيض الشفاف */}
+        <div
+          className="grid grid-cols-2 md:grid-cols-4 gap-y-4 gap-x-2 w-full rounded-[18px] md:rounded-[28px] py-3 md:py-4 px-4"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(200,200,202,0.25) 0%, rgba(230,230,232,0.12) 100%)",
+          }}
+        >
           {reversedStats.map((stat, index) => {
-            // حساب الفهرس الحقيقي المرتبط بالعد التنازلي/التصاعدي الأصلي
             const originalIndex = statsData.length - 1 - index;
             return (
               <motion.div
@@ -113,7 +123,6 @@ export default function Stats() {
                 variants={itemVariants}
                 className="flex flex-col items-center text-center justify-center relative"
               >
-                {/* الرقم المتحرك والتصاعدي */}
                 <h3 className="text-2xl md:text-[34px] font-bold text-white tracking-tight flex items-center justify-center select-none">
                   <span>{counts[originalIndex]}</span>
                   <span className="text-[#b31919] text-xl md:text-[28px] font-bold ml-0.5 transform translate-y-[-1px]">
@@ -121,7 +130,6 @@ export default function Stats() {
                   </span>
                 </h3>
 
-                {/* النص الوصفي */}
                 <p className="text-white/80 text-xs md:text-[13px] font-medium mt-0.5 max-w-[160px] leading-relaxed">
                   {stat.label}
                 </p>

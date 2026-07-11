@@ -5,31 +5,49 @@ import Image from "next/image";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (customValue: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, delay: customValue, ease: "easeOut" },
-  }),
+// حاوية واحدة تجمع العنوان والنص والشريط في تتابع واحد بدل 3 observers منفصلة
+const sectionContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
 };
 
-const CLIENTS = [
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: "easeOut" },
+  },
+};
+
+interface ClientItem {
+  id: number;
+  name: string;
+  image: string;
+}
+
+// إصلاح الـ ids المكررة (كانت كلها id: 4)
+const CLIENTS: ClientItem[] = [
   { id: 1, name: "MOG", image: "/mog.png" },
   { id: 2, name: "Dr. Greiche Glass", image: "/dr-greiche.png" },
   { id: 3, name: "EGY LED", image: "/egy-led.png" },
   { id: 4, name: "Agrina Tec", image: "/agrina.png" },
-  { id: 4, name: "Agrina Tec", image: "/apex-farma.png" },
-  { id: 4, name: "Agrina Tec", image: "/Farm_Frites.png" },
-  { id: 4, name: "Negida", image: "/negida.png" },
-  { id: 4, name: "CHP", image: "/CHP.png" },
+  { id: 5, name: "Apex Farma", image: "/apex-farma.png" },
+  { id: 6, name: "Farm Frites", image: "/Farm_Frites.png" },
+  { id: 7, name: "Negida", image: "/negida.png" },
+  { id: 8, name: "CHP", image: "/CHP.png" },
 ];
 
-const ITEMS_PER_VIEW = 4;
+const DESKTOP_ITEMS_PER_VIEW = 4;
 
 export default function OurClients() {
   const [page, setPage] = useState(0);
-  const [itemsPerView, setItemsPerView] = useState(ITEMS_PER_VIEW);
+  const [itemsPerView, setItemsPerView] = useState(DESKTOP_ITEMS_PER_VIEW);
 
   useEffect(() => {
     const updateItemsPerView = () => {
@@ -38,7 +56,7 @@ export default function OurClients() {
       } else if (window.innerWidth < 1024) {
         setItemsPerView(2);
       } else {
-        setItemsPerView(ITEMS_PER_VIEW);
+        setItemsPerView(DESKTOP_ITEMS_PER_VIEW);
       }
     };
     updateItemsPerView();
@@ -61,131 +79,113 @@ export default function OurClients() {
     return () => clearInterval(interval);
   }, [nextSlide]);
 
+  // لو تغيّر itemsPerView وبقى page خارج النطاق، رجّعه لصفحة صالحة
+  useEffect(() => {
+    if (page >= totalPages) setPage(0);
+  }, [totalPages, page]);
+
   const startIndex = page * itemsPerView;
   const visibleClients = CLIENTS.slice(startIndex, startIndex + itemsPerView);
 
   return (
-    <section dir="rtl" className="w-full py-20 overflow-hidden relative">
-      <div className="max-w-7xl mx-auto px-6 text-center">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          variants={fadeUp}
-          className="mb-6"
-        >
-          <h2 className="text-4xl md:text-8xl font-black text-white tracking-wider">
-            عملائـــــــنا
-          </h2>
-        </motion.div>
-
-        <motion.p
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          custom={0.2}
-          variants={fadeUp}
-          className="text-gray-300 text-sm md:text-[23px] max-w-3xl mx-auto leading-relaxed mb-2 font-medium"
-        >
-          نفخر بخدمة قاعدة واسعة من العملاء في مختلف القطاعات الصناعية، ونحرض
-          على بناء علاقات طويلة الأمد قائمة على الجودة، والاحترافية،
-          والالتزام، مما يجعلنا الخيار الموثوق لتنفيذ المشاريع الهندسية
-          والتصنيعية.
-        </motion.p>
-      </div>
-
-      {/* الشريط المقوّس - باستخدام SVG بدل clip-path polygon عشان يصير منحني فعلاً */}
+    <section dir="rtl" className="relative w-full overflow-hidden py-14 sm:py-20">
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
-        custom={0.4}
-        variants={fadeUp}
-        className="relative w-full -mb-4 "
+        variants={sectionContainer}
       >
-        {/* خلفية الشريط المنحني (SVG) */}
-       {/* خلفية الشريط المقعّر (SVG) */}
-<svg
-  viewBox="0 0 1600 300"
-  preserveAspectRatio="none"
-  className="absolute inset-0 w-full h-full"
-  style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.5))" }}
->
-<path
-  d="M 0,70 
-     C 400,95 1200,95 1600,70
-     L 1600,230
-     C 1200,205 400,205 0,230
-     Z"
-  fill="white"
-/>
-</svg>
+        <div className="mx-auto max-w-7xl px-5 text-center sm:px-6">
+          <motion.div variants={fadeUp} className="mb-5 sm:mb-6">
+            <h2
+              className="font-black tracking-wide text-white sm:tracking-wider"
+              style={{ fontSize: "clamp(32px, 8vw, 96px)" }}
+            >
+              عملائـــــــنا
+            </h2>
+          </motion.div>
 
-        {/* المحتوى فوق الشريط */}
-        <div className="relative flex items-center justify-between px-6 md:px-16 py-16 md:py-20">
-          {/* زر السابق */}
-          <button
-            onClick={prevSlide}
-            aria-label="السابق"
-            className="w-11 h-11 rounded-full border border-gray-300 bg-white text-gray-800 flex items-center justify-center hover:bg-gray-100 hover:border-gray-400 transition-all shrink-0 z-10 shadow-md"
+          <motion.p
+            variants={fadeUp}
+            className="mx-auto mb-2 max-w-3xl text-sm font-medium leading-relaxed text-gray-300 sm:text-lg md:text-[23px]"
           >
-            <MdKeyboardArrowRight className="w-7 h-7" />
-          </button>
-
-          {/* حاوية الشعارات */}
-          <div className="relative w-full max-w-5xl mx-auto px-4 overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={page}
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 30 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="flex items-center justify-around flex-wrap gap-8"
-              >
-               {visibleClients.map((client) => (
-  <div
-    key={client.id}
-    className="relative h-18 md:h-20 w-36 md:w-48 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-85 hover:opacity-100"
-  >
-    <Image
-      src={client.image}
-      alt={client.name}
-      fill
-      className="object-contain"
-    />
-  </div>
-))}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* زر التالي */}
-          <button
-            onClick={nextSlide}
-            aria-label="التالي"
-            className="w-11 h-11 rounded-full border border-gray-300 bg-white text-gray-800 flex items-center justify-center hover:bg-gray-100 hover:border-gray-400 transition-all shrink-0 z-10 shadow-md"
-          >
-            <MdKeyboardArrowLeft className="w-7 h-7" />
-          </button>
+            نفخر بخدمة قاعدة واسعة من العملاء في مختلف القطاعات الصناعية، ونحرض
+            على بناء علاقات طويلة الأمد قائمة على الجودة، والاحترافية،
+            والالتزام، مما يجعلنا الخيار الموثوق لتنفيذ المشاريع الهندسية
+            والتصنيعية.
+          </motion.p>
         </div>
-      </motion.div>
 
-      {/* نقاط التنقل 
-      {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-2">
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setPage(index)}
-              aria-label={`الصفحة ${index + 1}`}
-              className={`h-2 rounded-full transition-all ${
-                index === page ? "w-6 bg-white" : "w-2 bg-white/40"
-              }`}
+        {/* الشريط المقوّس */}
+        <motion.div variants={fadeUp} className="relative -mb-4 w-full will-change-transform">
+          {/* خلفية الشريط المقعّر (SVG) */}
+          <svg
+            viewBox="0 0 1600 300"
+            preserveAspectRatio="none"
+            className="absolute inset-0 h-full w-full"
+            style={{ filter: "drop-shadow(0 12px 24px rgba(0,0,0,0.4))" }}
+          >
+            <path
+              d="M 0,70 
+                 C 400,95 1200,95 1600,70
+                 L 1600,230
+                 C 1200,205 400,205 0,230
+                 Z"
+              fill="white"
             />
-          ))}
-        </div>
-      )}*/}
+          </svg>
+
+          {/* المحتوى فوق الشريط */}
+          <div className="relative flex items-center justify-between gap-2 px-4 py-12 sm:gap-4 sm:px-10 sm:py-16 md:px-16 md:py-20">
+            {/* زر السابق */}
+            <button
+              onClick={prevSlide}
+              aria-label="السابق"
+              className="z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-800 shadow-md transition-all hover:border-gray-400 hover:bg-gray-100 sm:h-11 sm:w-11"
+            >
+              <MdKeyboardArrowRight className="h-5 w-5 sm:h-7 sm:w-7" />
+            </button>
+
+            {/* حاوية الشعارات */}
+            <div className="relative mx-auto w-full max-w-5xl overflow-hidden px-1 sm:px-4">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={page}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 30 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="flex flex-wrap items-center justify-around gap-6 sm:gap-8"
+                >
+                  {visibleClients.map((client) => (
+                    <div
+                      key={client.id}
+                      className="relative h-14 w-28 shrink-0 opacity-85 grayscale transition-all hover:opacity-100 hover:grayscale-0 sm:h-20 sm:w-48"
+                    >
+                      <Image
+                        src={client.image}
+                        alt={client.name}
+                        fill
+                        sizes="(max-width: 640px) 30vw, (max-width: 1024px) 20vw, 192px"
+                        className="object-contain"
+                      />
+                    </div>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* زر التالي */}
+            <button
+              onClick={nextSlide}
+              aria-label="التالي"
+              className="z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-800 shadow-md transition-all hover:border-gray-400 hover:bg-gray-100 sm:h-11 sm:w-11"
+            >
+              <MdKeyboardArrowLeft className="h-5 w-5 sm:h-7 sm:w-7" />
+            </button>
+          </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

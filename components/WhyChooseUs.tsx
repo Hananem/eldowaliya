@@ -39,7 +39,17 @@ const FEATURES: FeatureItem[] = [
   },
 ];
 
-// حركة العنوان
+// حاوية القسم كله - تجمع العنوان والقائمة والصورة في تتابع واحد بدل observers منفصلة
+const sectionContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
+};
+
 const titleVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: {
@@ -49,7 +59,6 @@ const titleVariants: Variants = {
   },
 };
 
-// حاوية القائمة - تتحكم بترتيب ظهور العناصر
 const listContainer: Variants = {
   hidden: {},
   visible: {
@@ -102,115 +111,121 @@ export default function WhyChooseUs() {
           </span>
         </button>
       </div>
+
+      {/* الحاوية الخارجية - إطار فاتح شفاف (الحدود) + blur واحد بس هنا */}
       <section
         dir="rtl"
-        className="w-full mt-8 mb-22 bg-gradient-to-r bg-gray-500/15 backdrop-blur-lg p-4 rounded-[60px]"
+        className="w-full mt-8 mb-22 backdrop-blur-lg p-4 rounded-[60px] will-change-transform"
+        style={{
+          background: "rgba(210, 210, 212, 0.1)",
+        }}
       >
-        <div className="w-full bg-gray-500/10 backdrop-blur-lg px-6 py-12 md:px-12 md:py-16 rounded-[60px]">
-          {/* Title */}
+        {/* الحاوية الداخلية - نفس تدرّج الرمادي الفاتح، بدون backdrop-blur مكرر */}
+        <div
+          className="w-full px-6 py-12 md:px-12 md:py-16 rounded-[60px]"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(200,200,202,0.25) 0%, rgba(230,230,232,0.12) 100%)",
+          }}
+        >
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.6 }}
-            variants={titleVariants}
-            className="mb-10 flex justify-center md:mb-14"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionContainer}
           >
-            <h2 className="flex flex-wrap items-center gap-3 font-extrabold md:text-4xl">
-              <span
-                className="text-white !text-[46px] [-webkit-text-stroke:2px_black] [paint-order:stroke_fill] drop-shadow-[3px_3px_0px_#2a303c]"
-              >
-                لماذا تختار
-              </span>
-              <span
-                className="bg-gradient-to-b from-[#e12b2b] to-[#a11616] text-[36px] px-4 py-1.5 text-white [-webkit-text-stroke:2px_black] [paint-order:stroke_fill] shadow-[0_4px_12px_rgba(225,43,43,0.35)] !text-[46px]"
-              >
-                مركز الدولية؟
-              </span>
-            </h2>
-          </motion.div>
-
-          <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12">
-            {/* القائمة */}
+            {/* Title */}
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={listContainer}
-              className="order-2 flex flex-col gap-4 md:order-1 w-full max-w-[500px]"
+              variants={titleVariants}
+              className="mb-10 flex justify-center md:mb-14"
             >
-              {FEATURES.map((feature) => {
-                const isActive = feature.id === activeId;
-                return (
-                  <motion.div
-                    key={feature.id}
-                    variants={listItemVariants}
-                    className={`relative flex items-center justify-between rounded-full border min-h-[50px] py-2 pr-[85px] pl-5 transition-colors duration-300 ${
-                      isActive
-                        ? "border-[#b51719]/60 bg-white/[0.04]"
-                        : "border-white/10 bg-white/[0.02]"
-                    }`}
-                  >
-                    {/* شارة الرقم */}
-                    <span
-                      className={`absolute right-0 top-0 bottom-0 h-full w-[80px] flex shrink-0 items-center justify-center rounded-[28px] text-[38px] md:text-[44px] font-black leading-none text-white transition-colors duration-300 ${
-                        isActive ? "bg-[#b51719]" : "bg-[#5c0b0c]"
+              <h2 className="flex flex-wrap items-center gap-3 font-extrabold md:text-4xl">
+                <span className="text-white !text-[46px] [-webkit-text-stroke:2px_black] [paint-order:stroke_fill] drop-shadow-[3px_3px_0px_#2a303c]">
+                  لماذا تختار
+                </span>
+                <span className="bg-gradient-to-b from-[#e12b2b] to-[#a11616] text-[36px] px-4 py-1.5 text-white [-webkit-text-stroke:2px_black] [paint-order:stroke_fill] shadow-[0_4px_12px_rgba(225,43,43,0.35)] !text-[46px]">
+                  مركز الدولية؟
+                </span>
+              </h2>
+            </motion.div>
+
+            <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12">
+              {/* القائمة */}
+              <motion.div
+                variants={listContainer}
+                className="order-2 flex flex-col gap-4 md:order-1 w-full max-w-[500px]"
+              >
+                {FEATURES.map((feature) => {
+                  const isActive = feature.id === activeId;
+                  return (
+                    <motion.div
+                      key={feature.id}
+                      variants={listItemVariants}
+                      className={`relative flex items-center justify-between rounded-full border min-h-[50px] py-2 pr-[85px] pl-5 transition-colors duration-300 will-change-transform ${
+                        isActive
+                          ? "border-[#b51719]/60 bg-white/[0.04]"
+                          : "border-white/10 bg-white/[0.02]"
                       }`}
                     >
-                      {feature.label}
-                    </span>
+                      {/* شارة الرقم */}
+                      <span
+                        className={`absolute right-0 top-0 bottom-0 h-full w-[80px] flex shrink-0 items-center justify-center rounded-[28px] text-[38px] md:text-[44px] font-black leading-none text-white transition-colors duration-300 ${
+                          isActive ? "bg-[#b51719]" : "bg-[#5c0b0c]"
+                        }`}
+                      >
+                        {feature.label}
+                      </span>
 
-                    {/* النص الوصفي */}
-                    <p className="text-right text-xs md:text-sm leading-relaxed text-white/95 flex-1 pl-2">
-                      {feature.text}
-                    </p>
+                      {/* النص الوصفي */}
+                      <p className="text-right text-xs md:text-sm leading-relaxed text-white/95 flex-1 pl-2">
+                        {feature.text}
+                      </p>
 
-                    {/* زر السهم */}
-                    <button
-                      type="button"
-                      onClick={() => setActiveId(feature.id)}
-                      aria-label={`عرض صورة العنصر ${feature.label}`}
-                      aria-pressed={isActive}
-                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-200 hover:-translate-y-0.5 hover:border-[#b51719] hover:text-[#b51719] focus:outline-none"
-                    >
-                      <IoMdArrowUp
-                        className="h-8 w-8"
-                        style={{ transform: "rotate(-45deg)" }}
-                      />
-                    </button>
+                      {/* زر السهم */}
+                      <button
+                        type="button"
+                        onClick={() => setActiveId(feature.id)}
+                        aria-label={`عرض صورة العنصر ${feature.label}`}
+                        aria-pressed={isActive}
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-200 hover:-translate-y-0.5 hover:border-[#b51719] hover:text-[#b51719] focus:outline-none"
+                      >
+                        <IoMdArrowUp
+                          className="h-8 w-8"
+                          style={{ transform: "rotate(-45deg)" }}
+                        />
+                      </button>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+
+              {/* حاوية الصورة */}
+              <motion.div
+                variants={imageContainerVariants}
+                className="relative order-1 mx-auto aspect-[4/3] w-full max-w-[420px] overflow-hidden rounded-2xl md:order-2 shadow-lg will-change-transform"
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeFeature.id}
+                    initial={{ opacity: 0, scale: 1.05 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={activeFeature.image}
+                      alt={activeFeature.text}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 40vw"
+                      className="object-cover"
+                      priority
+                    />
                   </motion.div>
-                );
-              })}
-            </motion.div>
-
-            {/* حاوية الصورة */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={imageContainerVariants}
-              className="relative order-1 mx-auto aspect-[4/3] w-full max-w-[420px] overflow-hidden rounded-2xl md:order-2 shadow-lg"
-            >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeFeature.id}
-                  initial={{ opacity: 0, scale: 1.05 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="absolute inset-0"
-                >
-                  <Image
-                    src={activeFeature.image}
-                    alt={activeFeature.text}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 40vw"
-                    className="object-cover"
-                    priority
-                  />
-                </motion.div>
-              </AnimatePresence>
-            </motion.div>
-          </div>
+                </AnimatePresence>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>

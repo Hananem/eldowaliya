@@ -29,7 +29,7 @@ const footerVariants: Variants = {
       duration: 0.8,
       ease: "easeOut",
       when: "beforeChildren",
-      staggerChildren: 0.15,
+      staggerChildren: 0.12,
     },
   },
 };
@@ -51,29 +51,32 @@ export default function Footer() {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       variants={footerVariants}
-      className="relative bg-white text-[#181918] pt-16 rounded-tr-[60px] rounded-tl-[60px] md:rounded-tr-[120px] md:rounded-tl-[120px]"
+      className="relative bg-white text-[#181918] pt-12 sm:pt-16 rounded-tr-[36px] rounded-tl-[36px] sm:rounded-tr-[60px] sm:rounded-tl-[60px] md:rounded-tr-[120px] md:rounded-tl-[120px] will-change-transform"
     >
-      {/* Top curved glow */}
+      {/* Top curved glow - عنصر ثابت زخرفي، مرة واحدة بس (once: true) فمش بيكلف وقت السكرول */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 -top-24 mx-auto h-40 w-full max-w-5xl rounded-b-[100%] bg-gradient-to-b from-black/5 via-black/[0.01] to-transparent blur-2xl"
+        className="pointer-events-none absolute inset-x-0 -top-16 sm:-top-24 mx-auto h-28 sm:h-40 w-full max-w-5xl rounded-b-[100%] bg-gradient-to-b from-black/5 via-black/[0.01] to-transparent blur-2xl"
       />
 
-      <div className="relative mx-auto max-w-6xl px-6 pb-10">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-4 text-center md:text-right">
-          
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-6 pb-8 sm:pb-10">
+        <div className="grid grid-cols-1 gap-8 sm:gap-10 sm:grid-cols-2 md:grid-cols-4 text-center md:text-right">
+
           {/* 1. اللوجو والوصف */}
-          <motion.div variants={itemVariants} className="flex flex-col items-center md:items-start">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col items-center md:items-start sm:col-span-2 md:col-span-1 will-change-transform"
+          >
             <div className="flex items-center justify-center md:justify-start">
               <Image
                 src="/footer.png"
                 alt="مركز الدولية"
                 width={210}
                 height={210}
-                className="object-contain"
+                className="h-auto w-[150px] object-contain sm:w-[180px] md:w-[210px]"
               />
             </div>
-            <p className="text-sm leading-relaxed text-[#181918]/80 md:text-right">
+            <p className="max-w-sm text-sm leading-relaxed text-[#181918]/80 md:max-w-none md:text-right">
               مركز الدولية للخراطة وتشغيل المعادن، نقدم حلولاً متكاملة في
               تصنيع وتشغيل المعادن باستخدام أحدث ماكينات CNC والمعدات
               الصناعية المتطورة، مع فريق هندسي يمتلك خبرة واسعة لضمان أعلى
@@ -82,8 +85,11 @@ export default function Footer() {
           </motion.div>
 
           {/* 2. خدماتنا */}
-          <motion.div variants={itemVariants} className="flex flex-col items-center md:items-start mt-8 md:pt-4">
-            <h3 className="mb-4 text-lg font-extrabold text-[#181918]">
+          <motion.div
+            variants={itemVariants}
+            className="mt-4 flex flex-col items-center md:items-start md:mt-0 md:pt-4 will-change-transform"
+          >
+            <h3 className="mb-3 sm:mb-4 text-base sm:text-lg font-extrabold text-[#181918]">
               خدماتنا
             </h3>
             <ul className="flex flex-col gap-2">
@@ -101,8 +107,11 @@ export default function Footer() {
           </motion.div>
 
           {/* 3. روابط مهمة */}
-          <motion.div variants={itemVariants} className="flex flex-col items-center md:items-start mt-8 md:pt-4">
-            <h3 className="mb-4 text-lg font-extrabold text-[#181918]">
+          <motion.div
+            variants={itemVariants}
+            className="mt-4 flex flex-col items-center md:items-start md:mt-0 md:pt-4 will-change-transform"
+          >
+            <h3 className="mb-3 sm:mb-4 text-base sm:text-lg font-extrabold text-[#181918]">
               روابط مهمة
             </h3>
             <ul className="flex flex-col gap-2">
@@ -120,8 +129,11 @@ export default function Footer() {
           </motion.div>
 
           {/* 4. تواصل معنا */}
-          <motion.div variants={itemVariants} className="flex flex-col items-center md:items-start mt-8 md:pt-4">
-            <h3 className="mb-4 text-lg font-extrabold text-[#181918]">
+          <motion.div
+            variants={itemVariants}
+            className="mt-4 flex flex-col items-center md:items-start md:mt-0 md:pt-4 will-change-transform"
+          >
+            <h3 className="mb-3 sm:mb-4 text-base sm:text-lg font-extrabold text-[#181918]">
               تواصل معنا
             </h3>
             <ul className="flex flex-col gap-2 text-sm text-[#181918]/80">
@@ -141,10 +153,13 @@ export default function Footer() {
         </div>
 
         {/* Divider + copyright */}
-        <motion.div variants={itemVariants} className="mt-12 pt-6 text-center">
-  <p dir="ltr" className="text-center text-md">
-  © <span dir="rtl">جميع الحقوق محفوظة لدى مركز الدولية 2026</span>
-</p>
+        <motion.div
+          variants={itemVariants}
+          className="mt-10 sm:mt-12 border-t border-[#181918]/10 pt-5 sm:pt-6 text-center will-change-transform"
+        >
+          <p dir="ltr" className="text-center text-sm sm:text-base">
+            © <span dir="rtl">جميع الحقوق محفوظة لدى مركز الدولية 2026</span>
+          </p>
         </motion.div>
       </div>
     </motion.footer>
