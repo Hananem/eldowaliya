@@ -22,7 +22,7 @@ const CLIENTS = [
   { id: 4, name: "Agrina Tec", image: "/apex-farma.png" },
   { id: 4, name: "Agrina Tec", image: "/Farm_Frites.png" },
   { id: 4, name: "Negida", image: "/negida.png" },
-  { id: 4, name: "CHP", image: "/chp.png" },
+  { id: 4, name: "CHP", image: "/CHP.png" },
 ];
 
 const ITEMS_PER_VIEW = 4;

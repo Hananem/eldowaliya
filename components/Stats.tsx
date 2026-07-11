@@ -37,7 +37,7 @@ const itemVariants: Variants = {
 export default function Stats() {
   const statsData: StatItem[] = [
     { number: "2000+", label: "وظيفة مكتملة", targetValue: 2000 },
-    { number: "10+", label: "خبرة عملية", targetValue: 10 },
+    { number: "18+", label: "خبرة عملية", targetValue: 18 },
     { number: "15+", label: "ماكينة على أعلى مستوى", targetValue: 15 },
     { number: "500+", label: "عميل يثقون بنا", targetValue: 500 },
   ];
