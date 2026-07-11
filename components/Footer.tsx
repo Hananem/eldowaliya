@@ -66,7 +66,7 @@ export default function Footer() {
           <motion.div variants={itemVariants} className="flex flex-col items-center md:items-start">
             <div className="flex items-center justify-center md:justify-start">
               <Image
-                src="/footer-logo.png"
+                src="/footer.png"
                 alt="مركز الدولية"
                 width={210}
                 height={210}
