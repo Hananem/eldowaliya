@@ -32,7 +32,7 @@ export default function ContactSection() {
 
         {/* Action Button with Extended Kashida on both حرف التاء and حرف الفاء */}
         <Link
-          href="https://wa.me/"
+          href="https://wa.me/201225888133"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-3 px-12 py-3 border-2 border-white/90 hover:border-white text-white font-semibold rounded-full transition-all hover:bg-white/10 text-lg"
