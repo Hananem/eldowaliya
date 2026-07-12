@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { Cairo } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import localFont from "next/font/local";
-
+import {  Montserrat } from "next/font/google";
 
 
 const expoArabic = localFont({
@@ -38,11 +37,7 @@ const expoArabic = localFont({
   variable: "--font-expo",
 });
 
-const cairoArabic = Cairo({
-  variable: "--font-cairo",
-  subsets: ["arabic"],
-  weight: ["300", "400", "500", "700", "900"],
-});
+
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://your-domain.com"), // غيّرها لدومينك الفعلي
@@ -105,6 +100,11 @@ export const metadata: Metadata = {
   },
 };
 
+const montserratFont = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -115,7 +115,7 @@ export default function RootLayout({
       lang="ar"
       dir="rtl"
       // 🛠️ تم إضافة expoArabic.variable هنا لكي يتعرف عليه ملف الـ CSS والـ Tailwind
-      className={`${expoArabic.variable} ${cairoArabic.variable} h-full antialiased`}
+      className={`${expoArabic.variable} ${montserratFont.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#111622] font-sans">
         <Navbar />

@@ -53,7 +53,7 @@ export default function Footer() {
       variants={footerVariants}
       className="relative bg-white text-[#181918] pt-12 sm:pt-16 rounded-tr-[36px] rounded-tl-[36px] sm:rounded-tr-[60px] sm:rounded-tl-[60px] md:rounded-tr-[120px] md:rounded-tl-[120px] will-change-transform"
     >
-      {/* Top curved glow - عنصر ثابت زخرفي، مرة واحدة بس (once: true) فمش بيكلف وقت السكرول */}
+      {/* Top curved glow */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 -top-16 sm:-top-24 mx-auto h-28 sm:h-40 w-full max-w-5xl rounded-b-[100%] bg-gradient-to-b from-black/5 via-black/[0.01] to-transparent blur-2xl"
@@ -87,7 +87,7 @@ export default function Footer() {
           {/* 2. خدماتنا */}
           <motion.div
             variants={itemVariants}
-            className="mt-4 flex flex-col items-center md:items-start md:mt-0 md:pt-4 will-change-transform"
+            className="mt-12 flex flex-col items-center md:items-start md:mt-0 md:pt-16 will-change-transform"
           >
             <h3 className="mb-3 sm:mb-4 text-base sm:text-lg font-extrabold text-[#181918]">
               خدماتنا
@@ -109,7 +109,7 @@ export default function Footer() {
           {/* 3. روابط مهمة */}
           <motion.div
             variants={itemVariants}
-            className="mt-4 flex flex-col items-center md:items-start md:mt-0 md:pt-4 will-change-transform"
+            className="mt-4 flex flex-col items-center md:items-start md:mt-0 md:pt-16 will-change-transform"
           >
             <h3 className="mb-3 sm:mb-4 text-base sm:text-lg font-extrabold text-[#181918]">
               روابط مهمة
@@ -131,7 +131,7 @@ export default function Footer() {
           {/* 4. تواصل معنا */}
           <motion.div
             variants={itemVariants}
-            className="mt-4 flex flex-col items-center md:items-start md:mt-0 md:pt-4 will-change-transform"
+            className="mt-12 flex flex-col items-center md:items-start md:mt-0 md:pt-16 will-change-transform"
           >
             <h3 className="mb-3 sm:mb-4 text-base sm:text-lg font-extrabold text-[#181918]">
               تواصل معنا
