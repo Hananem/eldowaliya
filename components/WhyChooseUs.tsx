@@ -161,15 +161,15 @@ export default function WhyChooseUs() {
                     <motion.div
                       key={feature.id}
                       variants={listItemVariants}
-                      className={`relative flex items-center justify-between rounded-full border min-h-[50px] py-2 pr-[85px] pl-5 transition-colors duration-300 will-change-transform ${
+                      className={`relative flex items-center justify-between rounded-full border min-h-[50px] py-2 pr-[70px] md:pr-[85px] pl-5 transition-colors duration-300 will-change-transform ${
                         isActive
                           ? "border-[#b51719]/60 bg-white/[0.04]"
                           : "border-white/10 bg-white/[0.02]"
                       }`}
                     >
-                      {/* شارة الرقم */}
+                      {/* شارة الرقم - تم تصغير الحجم والعرض في الموبايل */}
                       <span
-                        className={`absolute right-0 top-0 bottom-0 h-full w-[80px] flex shrink-0 items-center justify-center rounded-[28px] text-[38px] md:text-[44px] font-black leading-none text-white transition-colors duration-300 ${
+                        className={`absolute right-0 top-0 bottom-0 h-full w-[65px] md:w-[80px] flex shrink-0 items-center justify-center rounded-[28px] text-[26px] md:text-[44px] font-black leading-none text-white transition-colors duration-300 ${
                           isActive ? "bg-[#b51719]" : "bg-[#5c0b0c]"
                         }`}
                       >

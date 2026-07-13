@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft, MdClose } from "react-icons/md";
+import { BsImage } from "react-icons/bs"; // أيقونة افتراضية في حال عدم وجود وسائط
 import { motion, AnimatePresence, Variants } from "framer-motion";
+import { CLIENTS, type Client } from "@/data/clients";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -14,101 +16,26 @@ const fadeUp: Variants = {
   }),
 };
 
-type Client = {
-  id: number;
-  name: string;
-  logo: string;
-  images: string[]; // كل عميل ممكن يكون له صورة واحدة أو أكثر
-  description: string;
+// دالة مساعدة للتحقق مما إذا كان المسار يعود لفيديو
+const isVideo = (url: string) => {
+  return url.endsWith(".mp4") || url.endsWith(".webm") || url.endsWith(".ogg");
 };
 
-const CLIENTS: Client[] = [
-  {
-    id: 1,
-    name: "Dr. Greiche Glass",
-    logo: "/dr-greiche-logo.png",
-    images: [
-      "/dr-greiche-cover-1.jpg",
-      "/dr-greiche-cover-2.jpg",
-      "/dr-greiche-cover-3.jpg",
-    ],
-    description:
-      "شركة رائدة في صناعة ومعالجة الزجاج، تقدم حلولًا مبتكرة وعالية الجودة لزجاج السيارات والمباني والقطاعات الصناعية وفقًا لأعلى المعايير العالمية.",
-  },
-  {
-    id: 2,
-    name: "EGY LED",
-    logo: "/egy-led-logo.png",
-    images: [
-      "/egy-led1.jpeg",
-      "/egy-led2.jpeg",
-      "/egy-led3.jpeg",
-    ],
-    description:
-      "شركة متخصصة في توفير وتصنيع حلول شاشات LED واللوحات الإعلانية الرقمية، تقدم منتجات عالية الجودة وتقنيات عرض متطورة تناسب الاستخدامات التجارية والإعلانية والفعاليات، مع خدمات تركيب ودعم فني متكاملة.",
-  },
-  {
-    id: 3,
-    name: "MOG",
-    logo: "/mog-logo.png",
-    images: ["/mog-cover-1.jpg", "/mog-cover-2.jpg", "/mog-cover-3.jpg"],
-    description:
-      "شركة متخصصة في توريد وتجهيز معدات المطابخ التجارية والمطاعم والفنادق، وتقدم حلولًا متكاملة تشمل أحدث المعدات الاحترافية التي تجمع بين الجودة والكفاءة لتلبية احتياجات قطاع الضيافة والخدمات الغذائية.",
-  },
-  {
-    id: 4,
-    name: "Agrina Tec",
-    logo: "/agrina-logo.png",
-    images: [
-      "/agrina-cover-1.jpg",
-      "/agrina-cover-2.jpg",
-      "/agrina-cover-3.jpg",
-    ],
-    description:
-      "شركة متخصصة في التصنيع الغذائي للمنتجات الزراعية، تقدم حلولًا متكاملة في إنتاج وتوزيع المركزات والمجمدات بجودة عالية، مع الالتزام بأعلى معايير الجودة والسلامة والاستدامة لتلبية احتياجات قطاع الأغذية والمشروبات محليًا وعالميًا.",
-  },
-  {
-    id: 5,
-    name: "NEGIDA",
-    logo: "/negida-logo.png",
-    images: [
-      "/negida-cover-1.jpg",
-      "/negida-cover-2.jpg",
-      "/negida-cover-3.jpg",
-    ],
-    description:
-      "نجيدة للمقاولات شركة متخصصة في أعمال المقاولات العامة والإنشاءات، تقدم حلولًا هندسية متكاملة تشمل تنفيذ مشروعات البنية التحتية والطرق والأعمال المدنية، مع الالتزام بأعلى معايير الجودة والسلامة وإنجاز المشاريع بكفاءة وفي الوقت المحدد.",
-  },
-  {
-    id: 6,
-    name: "CHP",
-    logo: "/chp-logo-removebg-preview.png",
-    images: [
-      "/chp1.jpeg",
-      "/chp2.jpeg",
-      "/chp3.jpeg",
-      "/chp4.jpeg",
-      "/chp5.jpeg",
-    ],
-    description:
-    "شركة القناة للموانئ والمشروعات الكبرى (CHP)، إحدى شركات هيئة قناة السويس، تأسست عام 1965 وتُعد من الكيانات الرائدة في مجال أعمال التكريك والإنشاءات البحرية والموانئ والأعمال المدنية، وتقدم حلولًا هندسية متكاملة تشمل تنفيذ مشروعات البنية التحتية البحرية والموانئ، مع الالتزام بأعلى معايير الجودة والسلامة وإنجاز المشاريع بكفاءة وفي الوقت المحدد."
-  },
-];
-
 /* ------------------------------------------------------------------ */
-/*  مكوّن فرعي: سلايدر الصور الداخلي لكل عميل (مع أسهم يمين/يسار)     */
-/*  ملاحظة: تم حذف التمرير التلقائي - التنقل الآن يدويًا فقط عبر       */
-/*  الأسهم أو النقاط                                                    */
+/*  مكوّن فرعي: سلايدر الوسائط الداخلي (صور وفيديوهات) لكل عميل        */
 /* ------------------------------------------------------------------ */
 function InnerImageSlider({
   images,
   alt,
+  onOpenModal,
 }: {
   images: string[];
   alt: string;
+  onOpenModal: (url: string) => void;
 }) {
   const [imgIndex, setImgIndex] = useState(0);
   const hasMultiple = images.length > 1;
+  const isEmpty = !images || images.length === 0;
 
   // إعادة الضبط لما يتغيّر العميل (تصفير السلايدر الداخلي)
   useEffect(() => {
@@ -127,8 +54,23 @@ function InnerImageSlider({
     setImgIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  // في حال لم تكن هناك بيانات للصور أو الفيديوهات
+  if (isEmpty) {
+    return (
+      <div className="relative w-full h-full flex flex-col items-center justify-center bg-gray-800 text-gray-100 gap-2">
+        <BsImage className="w-12 h-12 opacity-50" />
+        <span className="text-xs">لا توجد وسائط متاحة</span>
+      </div>
+    );
+  }
+
+  const currentMedia = images[imgIndex];
+
   return (
-    <div className="relative w-full h-full group">
+    <div 
+      className="relative w-full h-full group bg-black cursor-pointer"
+      onClick={() => onOpenModal(currentMedia)}
+    >
       <AnimatePresence mode="wait">
         <motion.div
           key={imgIndex}
@@ -136,22 +78,34 @@ function InnerImageSlider({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
-          className="absolute inset-0"
+          className="absolute inset-0 flex items-center justify-center"
         >
-          <Image
-            src={images[imgIndex]}
-            alt={`${alt} ${imgIndex + 1}`}
-            fill
-            className="object-cover"
-          />
+          {isVideo(currentMedia) ? (
+            <video
+              src={currentMedia}
+              controls
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <Image
+              src={currentMedia}
+              alt={`${alt} ${imgIndex + 1}`}
+              fill
+              className="object-cover"
+            />
+          )}
         </motion.div>
       </AnimatePresence>
 
-      {/* سهم يمين (التالي داخل نفس الصورة) */}
+      {/* سهم يمين (التالي داخل نفس الوسائط) */}
       <button
         onClick={nextImage}
         disabled={!hasMultiple}
-        aria-label="الصورة التالية"
+        aria-label="العنصر التالي"
         className={`absolute top-1/2 -translate-y-1/2 right-2 z-10 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center transition-all
           ${
             hasMultiple
@@ -162,11 +116,11 @@ function InnerImageSlider({
         <MdKeyboardArrowLeft className="w-5 h-5" />
       </button>
 
-      {/* سهم يسار (السابق داخل نفس الصورة) */}
+      {/* سهم يسار (السابق داخل نفس الوسائط) */}
       <button
         onClick={prevImage}
         disabled={!hasMultiple}
-        aria-label="الصورة السابقة"
+        aria-label="العنصر السابق"
         className={`absolute top-1/2 -translate-y-1/2 left-2 z-10 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center transition-all
           ${
             hasMultiple
@@ -177,7 +131,7 @@ function InnerImageSlider({
         <MdKeyboardArrowRight className="w-5 h-5" />
       </button>
 
-      {/* نقاط تنقل صغيرة داخل الصورة نفسها */}
+      {/* نقاط تنقل صغيرة داخل الوسائط نفسها */}
       {hasMultiple && (
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
           {images.map((_, i) => (
@@ -187,7 +141,7 @@ function InnerImageSlider({
                 e.stopPropagation();
                 setImgIndex(i);
               }}
-              aria-label={`صورة ${i + 1}`}
+              aria-label={`عنصر ${i + 1}`}
               className={`h-1.5 rounded-full transition-all ${
                 i === imgIndex ? "w-5 bg-white" : "w-1.5 bg-white/50"
               }`}
@@ -201,12 +155,11 @@ function InnerImageSlider({
 
 /* ------------------------------------------------------------------ */
 /*  المكوّن الرئيسي                                                    */
-/*  ملاحظة: تم حذف التمرير التلقائي بين العملاء - التنقل الآن يدويًا   */
-/*  فقط عبر زرّي التالي/السابق                                         */
 /* ------------------------------------------------------------------ */
 export default function ClientsShowcase() {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [modalMedia, setModalMedia] = useState<string | null>(null);
 
   const next = useCallback(() => {
     setDirection(1);
@@ -239,9 +192,7 @@ export default function ClientsShowcase() {
 
   return (
     <section dir="rtl" className="w-full py-20 px-4 md:px-8 flex justify-center">
-      {/* الطبقة الخارجية الأولى مع الـ padding والظل */}
       <div className="w-full max-w-6xl mx-auto bg-gray-500/10 backdrop-blur-lg rounded-[40px] p-2 shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
-        {/* الطبقة الداخلية الثانية بنفس الخلفية والـ padding */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -259,22 +210,20 @@ export default function ClientsShowcase() {
               exit="exit"
               className="flex flex-col lg:flex-row items-center gap-8 md:gap-10 px-6 md:px-12 py-10 md:py-14 text-center lg:text-right"
             >
-              {/* النص + الشعار - أول عنصر بالـ DOM => يظهر أقصى اليمين */}
               <div className="flex-1 min-w-0">
-               <div className="relative h-14 md:h-20 w-40 md:w-56 mx-auto mb-6 flex items-center justify-center">
-  <Image
-    src={client.logo}
-    alt={client.name}
-    fill
-    className="object-contain object-center"
-  />
-</div>
+                <div className="relative h-14 md:h-20 w-40 md:w-56 mx-auto mb-6 flex items-center justify-center">
+                  <Image
+                    src={client.logo}
+                    alt={client.name}
+                    fill
+                    className="object-contain object-center"
+                  />
+                </div>
                 <p className="text-gray-300 text-sm md:text-lg leading-relaxed font-medium">
                   {client.description}
                 </p>
               </div>
 
-              {/* زر التالي (للسلايدر الرئيسي - التنقل بين العملاء) */}
               <button
                 onClick={next}
                 aria-label="العميل التالي"
@@ -283,14 +232,14 @@ export default function ClientsShowcase() {
                 <MdKeyboardArrowLeft className="w-6 h-6 md:w-7 md:h-7" />
               </button>
 
-              {/* الصورة/الكارت الأبيض - سلايدر صور داخلي مستقل */}
-              <div 
-              className="relative w-[75%] sm:w-[60%] lg:w-[46%] aspect-[4/3] shrink-0 rounded-3xl overflow-hidden bg-white shadow-md"
-              >
-  <InnerImageSlider images={client.images} alt={client.name} />
-</div>
+              <div className="relative w-[75%] sm:w-[60%] lg:w-[46%] aspect-[4/3] shrink-0 rounded-3xl overflow-hidden bg-white shadow-md">
+                <InnerImageSlider 
+                  images={client.images} 
+                  alt={client.name} 
+                  onOpenModal={(url) => setModalMedia(url)}
+                />
+              </div>
 
-              {/* زر السابق (للسلايدر الرئيسي - التنقل بين العملاء) */}
               <button
                 onClick={prev}
                 aria-label="العميل السابق"
@@ -303,8 +252,55 @@ export default function ClientsShowcase() {
         </motion.div>
       </div>
 
-      {/* نقاط تنقل بين العملاء أنفسهم */}
-      <div className="hidden">{/* placeholder لو حبيت تضيف dots للعملاء لاحقاً */}</div>
+      {/* نافذة المودال لعرض الصورة أو الفيديو المكبر */}
+      <AnimatePresence>
+        {modalMedia && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setModalMedia(null)}
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 md:p-10"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-4xl w-full max-h-[90vh] bg-black rounded-3xl overflow-hidden flex items-center justify-center shadow-2xl"
+            >
+              <button
+                onClick={() => setModalMedia(null)}
+                aria-label="إغلاق"
+                className="absolute top-4 left-4 z-20 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
+              >
+                <MdClose className="w-6 h-6" />
+              </button>
+
+              {isVideo(modalMedia) ? (
+                <video
+                  src={modalMedia}
+                  controls
+                  autoPlay
+                  playsInline
+                  className="w-full max-h-[85vh] object-contain"
+                />
+              ) : (
+                <div className="relative w-full h-[80vh]">
+                  <Image
+                    src={modalMedia}
+                    alt="عرض مكبر"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="hidden"></div>
     </section>
   );
 }

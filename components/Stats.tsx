@@ -87,17 +87,18 @@ export default function Stats() {
   }, [hasStarted]);
 
   return (
-    <section className="w-full p-2 py-4 flex justify-center relative">
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 md:left-24 md:translate-x-0 z-10">
+    <section className="w-full p-2 py-4 pb-14 md:py-4 flex justify-center relative">
+      {/* تم إبعاد السهم للأسفل في الهواتف باستخدام bottom-1 و pb-14 للقسم */}
+      <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 md:bottom-6 md:left-24 md:translate-x-0 z-10">
         <button
           onClick={scrollToAbout}
-          className="w-10 h-10 rounded-full border border-[#fefefe] flex items-center justify-center hover:bg-white/5 transition-colors group"
+          className="w-10 h-10 rounded-full border border-[#fefefe] flex items-center justify-center hover:bg-white/5 transition-colors group bg-black/20 backdrop-blur-md"
         >
           <span className="text-[#fefefe] group-hover:text-white transition-colors text-lg">↓</span>
         </button>
       </div>
 
-      {/* الحاوية الخارجية - blur واحد بس هنا */}
+      {/* الحاوية الخارجية */}
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -107,9 +108,8 @@ export default function Stats() {
         className="w-full mt-8 max-w-6xl backdrop-blur-lg rounded-[24px] md:rounded-[36px] p-2 shadow-[0_20px_50px_rgba(0,0,0,0.4)] will-change-transform"
         dir="rtl"
       >
-        {/* الحاوية الداخلية - رمادي فاتح قريب من الأبيض الشفاف */}
         <div
-          className="grid grid-cols-2 md:grid-cols-4 gap-y-4 gap-x-2 w-full rounded-[18px] md:rounded-[28px] py-3 md:py-4 px-4"
+          className="flex flex-col md:grid md:grid-cols-4 gap-y-6 md:gap-y-4 gap-x-2 w-full rounded-[18px] md:rounded-[28px] py-6 md:py-4 px-4"
           style={{
             background:
               "radial-gradient(ellipse at center, rgba(200,200,202,0.25) 0%, rgba(230,230,232,0.12) 100%)",

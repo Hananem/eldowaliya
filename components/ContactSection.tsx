@@ -26,7 +26,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative flex items-center justify-start overflow-hidden p-6 font-sans sm:p-12"
+      className="relative  mt-16 flex items-center justify-start overflow-hidden p-6 font-sans sm:p-12"
       dir="rtl"
     >
       {/* Main Container Card */}
