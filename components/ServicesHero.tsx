@@ -106,7 +106,8 @@ export default function ServicesHero() {
   rel="noopener noreferrer"
   className="inline-block bg-[#b31919] hover:bg-[#9a1414] transition-colors text-white font-bold text-sm md:text-base px-10.5 py-2.5 rounded-full shadow-lg border border-white tracking-wider"
 >
-  تواصـــــــل مـــــــعنا
+    تواصل معنا
+
 </Link>
             </motion.div>
           </div>

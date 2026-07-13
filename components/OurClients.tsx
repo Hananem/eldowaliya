@@ -101,7 +101,7 @@ export default function OurClients() {
               className="font-black tracking-wide text-white sm:tracking-wider"
               style={{ fontSize: "clamp(32px, 8vw, 96px)" }}
             >
-              عملائـــــــنا
+   عملاؤنا
             </h2>
           </motion.div>
 
