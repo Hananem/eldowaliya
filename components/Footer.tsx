@@ -51,7 +51,7 @@ export default function Footer() {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       variants={footerVariants}
-      className="relative bg-white text-[#181918] pt-12 sm:pt-16 rounded-tr-[36px] rounded-tl-[36px] sm:rounded-tr-[60px] sm:rounded-tl-[60px] md:rounded-tr-[120px] md:rounded-tl-[120px] will-change-transform"
+      className="relative bg-white text-[#181918] pt-12 sm:pt-16 rounded-tr-[37px] rounded-tl-[36px] sm:rounded-tr-[60px] sm:rounded-tl-[60px] md:rounded-tr-[120px] md:rounded-tl-[120px] will-change-transform"
     >
       {/* Top curved glow */}
       <div
