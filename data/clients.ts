@@ -50,7 +50,7 @@ export const CLIENTS: Client[] = [
     name: "NEGIDA",
     logo: "/negida-logo.png",
     images: [
-    "/negida1.jpeg", "/negida2.jpeg", "/negida3.jpeg", "/negida4.jpeg"
+    "/negida1.jpeg", "/negida2.jpeg", "/negida3.jpeg", "/negida4.jpeg", "/negida4.jpeg", "/negida5.jpeg", "/negida6.jpeg", "/negida7.jpeg", "/negida8.jpeg" ,"/farm-frites1.jpeg", "/farm-frites2.jpeg",
     ],
     description:
       "نجيدة للمقاولات شركة متخصصة في أعمال المقاولات العامة والإنشاءات، تقدم حلولًا هندسية متكاملة تشمل تنفيذ مشروعات البنية التحتية والطرق والأعمال المدنية، مع الالتزام بأعلى معايير الجودة والسلامة وإنجاز المشاريع بكفاءة وفي الوقت المحدد.",
@@ -67,7 +67,7 @@ export const CLIENTS: Client[] = [
     id: 7,
     name: "Farm Frites",
     logo: "/farm-frites-logo.png",
-    images: ["/farm-frites1.jpeg", "/farm-frites2.jpeg", "/farm-frites3.jpeg",  "/farm-frites4.jpeg" , "/farm-frites5.jpeg", "/farm-frites6.jpeg"],
+    images: [ "/farm-frites3.jpeg",  "/farm-frites4.jpeg" , "/farm-frites5.jpeg", "/farm-frites6.jpeg"],
     description:
       "شركة رائدة في مجال تصنيع منتجات البطاطس المجمدة والغذائية، تقدم منتجات عالية الجودة لتلبية احتياجات قطاع الفنادق والمطاعم والخدمات الغذائية محلياً وعالمياً.",
   },
