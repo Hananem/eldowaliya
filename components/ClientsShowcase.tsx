@@ -216,7 +216,7 @@ export default function ClientsShowcase() {
                     src={client.logo}
                     alt={client.name}
                     fill
-                    className="object-contain object-center"
+                    className="object-contain object-center brightness-0 invert"
                   />
                 </div>
                 <p className="text-gray-300 text-sm md:text-lg leading-relaxed font-medium">
